@@ -33,6 +33,8 @@ class SettingsService
             'avatarUrl' => $liveChatConfig->avatarUrl,
             'title' => $liveChatConfig->title,
             'description' => $liveChatConfig->description,
+            'whatsAppUrl' => $liveChatConfig->whatsAppUrl,
+            'loginUrl' => $liveChatConfig->loginUrl,
         ]);
         return true;
     }

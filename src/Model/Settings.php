@@ -12,11 +12,6 @@ class Settings extends Model
     public string $avatarUrl = '';
     public string $description = '';
     public string $title = '';
-
-    public function defineRules(): array
-    {
-        return [
-            [['apiKey', 'apiSecret', 'pluginRepositoryDomain', 'title', 'description'], 'required'],
-        ];
-    }
+    public string $loginUrl = '';
+    public string $whatsAppUrl = '';
 }

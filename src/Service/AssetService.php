@@ -4,6 +4,7 @@ namespace NetAnts\WhatsRabbitLiveChat\Service;
 
 use Craft;
 use craft\elements\Asset;
+use craft\web\UploadedFile;
 
 class AssetService
 {
@@ -24,6 +25,8 @@ class AssetService
             $tmpPath,
             $fileName
         );
+
+        UploadedFile::getInstanceByName($fileName);
         $asset->filename = $fileName;
         $asset->title = $fileName;
         $asset->avoidFilenameConflicts = true;

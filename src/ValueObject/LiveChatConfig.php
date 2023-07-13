@@ -19,6 +19,8 @@ class LiveChatConfig
         public readonly string $avatarUrl,
         public readonly string $title,
         public readonly string $description,
+        public readonly string $whatsAppUrl,
+        public readonly string $loginUrl,
     ) {
     }
 
@@ -41,6 +43,8 @@ class LiveChatConfig
             $data['avatarUrl'],
             $data['title'],
             $data['description'],
+            $data['whatsAppUrl'],
+            $data['loginUrl']
         );
     }
 }
