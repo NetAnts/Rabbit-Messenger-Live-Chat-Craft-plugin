@@ -1,9 +1,13 @@
 {% extends '_layouts/cp' %}
-
 {% import "_includes/forms" as forms %}
 {% set title = "What'sRabbit LiveChat"|t('app') %}
 {% set fullPageForm = true %}
 {% set settings = craft.app.getPlugins().getPlugin('whatsrabbit-live-chat').getSettings() %}
+{% set foundAsset = craft.assets().id(settings.avatarAssetId) %}
+
+{% block mainFormAttributes -%}
+    {{ parent() }} enctype="multipart/form-data"
+{%- endblock %}
 
 {% block content %}
     {{ actionInput('whatsrabbit-live-chat/settings/save') }}
@@ -14,6 +18,7 @@
         value: settings.apiKey,
         inputmode: 'text',
         size: 50,
+        required: true,
     }) }}
 
     {{ forms.textField({
@@ -23,21 +28,20 @@
         value: settings.apiSecret,
         inputmode: 'text',
         size: 50,
+        required: true,
     }) }}
 
-    {{ forms.textField({
-        label: 'Plugin Repository Domain'|t('app'),
-        id: 'plugin-repository-domain',
-        name: 'pluginRepositoryDomain',
-        value: settings.pluginRepositoryDomain,
-        size: 50,
-    }) }}
-
-    {{ forms.fileField({
-        label: 'Avatar',
-        id: 'avatarUrl',
-        name: 'avatarUrl',
-        value: settings.avatarUrl,
+    {{ forms.elementSelectField({
+        label: "Avatar",
+        id: "avatarAssetId",
+        name: "avatarAssetId",
+        viewMode: "list",
+        elementType: 'craft\\elements\\Asset',
+        required: true,
+        errors: settings.getErrors('imageId'),
+        limit: 1,
+        elements: foundAsset,
+        criteria: { kind: 'image'}
     }) }}
 
     {{ forms.textField({
@@ -46,6 +50,7 @@
         name: 'title',
         value: settings.title,
         size: 50,
+        required: true,
     }) }}
 
     {{ forms.textField({
@@ -54,6 +59,7 @@
         name: 'description',
         value: settings.description,
         size: 50,
+        required: true,
     }) }}
 
     {{ forms.textField({
@@ -62,6 +68,7 @@
         name: 'whatsAppUrl',
         value: settings.whatsAppUrl,
         size: 50,
+        required: true,
     }) }}
 
     {{ forms.textField({
@@ -70,5 +77,6 @@
         name: 'loginUrl',
         value: settings.loginUrl,
         size: 50,
+        required: true,
     }) }}
 {% endblock %}

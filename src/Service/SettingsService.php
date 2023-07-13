@@ -4,11 +4,7 @@ namespace NetAnts\WhatsRabbitLiveChat\Service;
 
 use Craft;
 use craft\base\PluginInterface;
-use NetAnts\WhatsRabbitLiveChat\Model\Settings;
-use NetAnts\WhatsRabbitLiveChat\Plugin;
 use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
-use yii\base\Model;
-use yii\base\Module;
 
 class SettingsService
 {
@@ -24,18 +20,15 @@ class SettingsService
 
     public function saveSettings(PluginInterface $plugin, LiveChatConfig $liveChatConfig): bool
     {
-//        $asset = $this->assetService->createAsset($liveChatConfig->avatarUrl);
-
-        $this->craft::$app->plugins->savePluginSettings($plugin, [
+        return $this->craft::$app->plugins->savePluginSettings($plugin, [
             'apiKey' => $liveChatConfig->apiKey,
             'apiSecret' => $liveChatConfig->apiSecret,
             'pluginRepositoryDomain' => getenv('DEV_MODE') ? self::PLUGIN_REPO_DEV_URL : self::PLUGIN_REPO_PROD_URL,
-            'avatarUrl' => $liveChatConfig->avatarUrl,
+            'avatarAssetId' => $liveChatConfig->avatarAssetId,
             'title' => $liveChatConfig->title,
             'description' => $liveChatConfig->description,
             'whatsAppUrl' => $liveChatConfig->whatsAppUrl,
             'loginUrl' => $liveChatConfig->loginUrl,
         ]);
-        return true;
     }
 }

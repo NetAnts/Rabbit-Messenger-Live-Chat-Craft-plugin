@@ -31,6 +31,7 @@ class Plugin extends \craft\base\Plugin
                         [
                             'url' => 'whatsrabbit-live-chat',
                             'label' => 'Settings',
+                            'settings' => $this->getSettings()
                         ]
                     ]
                 ];
@@ -90,10 +91,5 @@ class Plugin extends \craft\base\Plugin
             'whatsrabbit-live-chat/settings',
             ['settings' => $this->getSettings()]
         );
-    }
-
-    public static function getPluginInstance(): self
-    {
-        return parent::getInstance();
     }
 }

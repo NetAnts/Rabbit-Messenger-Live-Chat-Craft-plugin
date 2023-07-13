@@ -2,6 +2,7 @@
 
 namespace NetAnts\WhatsRabbitLiveChat\ValueObject;
 
+use craft\elements\Asset;
 use InvalidDataException;
 
 class LiveChatConfig
@@ -16,7 +17,7 @@ class LiveChatConfig
     private function __construct(
         public readonly string $apiKey,
         public readonly string $apiSecret,
-        public readonly string $avatarUrl,
+        public readonly string $avatarAssetId,
         public readonly string $title,
         public readonly string $description,
         public readonly string $whatsAppUrl,
@@ -40,7 +41,7 @@ class LiveChatConfig
         return new self(
             $data['apiKey'],
             $data['apiSecret'],
-            $data['avatarUrl'],
+            $data['avatarAssetId'][0],
             $data['title'],
             $data['description'],
             $data['whatsAppUrl'],
