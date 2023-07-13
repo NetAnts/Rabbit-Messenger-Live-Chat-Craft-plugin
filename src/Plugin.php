@@ -64,6 +64,8 @@ class Plugin extends \craft\base\Plugin
     {
         $settings = Plugin::getInstance()->getSettings();
 
+        $asset = Craft::$app->assets->getAssetById($settings['avatarAssetId']);
+
         return sprintf(
             '<whatsrabbit-live-chat-widget
                         avatar-url="%s"
@@ -72,7 +74,7 @@ class Plugin extends \craft\base\Plugin
                         welcome-title="%s"
                         welcome-description="%s"
                     ></whatsrabbit-live-chat-widget>',
-            $settings['avatarUrl'],
+            $asset->url,
             $settings['loginUrl'],
             $settings['whatsAppUrl'],
             $settings['title'],
