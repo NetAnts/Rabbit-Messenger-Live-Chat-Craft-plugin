@@ -1,0 +1,43 @@
+{% extends '_layouts/cp' %}
+
+{% import "_includes/forms" as forms %}
+{% set title = "What'sRabbit LiveChat"|t('app') %}
+{% set fullPageForm = true %}
+{% set settings = craft.app.getPlugins().getPlugin('whatsrabbit-live-chat').getSettings() %}
+
+{% block content %}
+    {{ actionInput('whatsrabbit-live-chat/settings/save') }}
+    {{ forms.textField({
+        label: 'API Key'|t('app'),
+        id: 'api-key',
+        name: 'apiKey',
+        value: settings.apiKey,
+        inputmode: 'text',
+        size: 50,
+    }) }}
+
+    {{ forms.textField({
+        label: 'API Secret'|t('app'),
+        id: 'api-secret',
+        name: 'apiSecret',
+        value: settings.apiSecret,
+        inputmode: 'text',
+        size: 50,
+    }) }}
+
+    {{ forms.textField({
+        label: 'Plugin Repository Domain'|t('app'),
+        id: 'plugin-repository-domain',
+        name: 'pluginRepositoryDomain',
+        value: settings.pluginRepositoryDomain,
+        size: 50,
+    }) }}
+
+    {{ forms.fileField({
+        label: 'test',
+        id: 'live-chat-widget-logo',
+        name: 'liveChatWidgetLogo',
+        value: settings.liveChatWidgetLogo,
+    }) }}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{
+  "name": "netants/whatsrabbit-live-chat",
+  "description": "This plugin provides a What'sRabbit LiveChat widget for your CraftCMS website",
+  "license": "MIT",
+  "type": "craft-plugin",
+  "authors": [
+    {
+      "name": "NetAnts",
+      "email": "info@netants.nl",
+      "homepage": "https://netants.nl"
+    }
+  ],
+  "require-dev": {
+    "craftcms/cms": "^4.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "NetAnts\\WhatsRabbitLiveChat\\": "src/"
+    }
+  },
+  "extra": {
+    "name": "What'sRabbit LiveChat",
+    "handle": "whatsrabbit-live-chat"
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}

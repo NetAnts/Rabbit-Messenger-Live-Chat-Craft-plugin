@@ -1,0 +1,29 @@
+{% import "_includes/forms" as forms %}
+{% set title = "What'sRabbit LiveChat"|t('app') %}
+{% set fullPageForm = true %}
+
+{{ forms.textField({
+    label: 'API Key'|t('app'),
+    instructions: 'The API key is needed in order to communicate with What\'sRabbit.'|t('app'),
+    id: 'api-key',
+    name: 'apiKey',
+    value: settings.apiKey,
+    size: 50,
+}) }}
+
+{{ forms.textField({
+    label: 'API Secret'|t('app'),
+    instructions: 'The API secret is needed in order to communicate with What\'sRabbit.'|t('app'),
+    id: 'api-secret',
+    name: 'apiSecret',
+    value: settings.apiSecret,
+    size: 50,
+}) }}
+
+{{ forms.textField({
+    label: 'Plugin Repository Domain'|t('app'),
+    id: 'plugin-repository-domain',
+    name: 'pluginRepositoryDomain',
+    value: settings.pluginRepositoryDomain,
+    size: 50,
+}) }}
