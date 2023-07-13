@@ -25,8 +25,6 @@ class SettingsController extends Controller
         $data = $this->request->getBodyParams();
         $liveChatConfig = LiveChatConfig::createFromRequest($data);
 
-
-
         $saved = $this->settingsService->saveSettings(
             Plugin::getInstance(),
             $liveChatConfig,
