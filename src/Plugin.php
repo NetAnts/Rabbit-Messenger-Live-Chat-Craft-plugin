@@ -52,12 +52,9 @@ class Plugin extends \craft\base\Plugin
         Craft::$app->view->hook('whatsrabbit-live-chat', [$this, 'getLiveChatWidget']);
 
         // Replace with prod url and files
-        \Craft::$app->getView()->registerCssFile("http://localhost:4401/angular-dist/styles.css");
-        \Craft::$app->getView()->registerJsFile("http://localhost:4401/angular-dist/runtime.js");
-        \Craft::$app->getView()->registerJsFile("http://localhost:4401/angular-dist/polyfills.js");
-        \Craft::$app->getView()->registerJsFile("http://localhost:4401/angular-dist/vendor.js");
-        \Craft::$app->getView()->registerJsFile("http://localhost:4401/angular-dist/main.js");
-
+        Craft::$app->getView()->registerCssFile("https://assets.plugins-acceptance.whatsrabbit.com/styles.css");
+        Craft::$app->getView()->registerJsFile("https://assets.plugins-acceptance.whatsrabbit.com/polyfills.js");
+        Craft::$app->getView()->registerJsFile("https://assets.plugins-acceptance.whatsrabbit.com/main.js");
 
         parent::init();
     }
