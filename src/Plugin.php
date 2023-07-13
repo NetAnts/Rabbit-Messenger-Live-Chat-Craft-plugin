@@ -61,4 +61,9 @@ class Plugin extends \craft\base\Plugin
             ['settings' => $this->getSettings()]
         );
     }
+
+    public static function getPluginInstance(): self
+    {
+        return parent::getInstance();
+    }
 }

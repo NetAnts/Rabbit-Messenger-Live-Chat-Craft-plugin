@@ -9,12 +9,14 @@ class Settings extends Model
     public string $apiKey = '';
     public string $apiSecret = '';
     public string $pluginRepositoryDomain = '';
-    public string $liveChatWidgetLogo = '';
+    public string $avatarUrl = '';
+    public string $description = '';
+    public string $title = '';
 
     public function defineRules(): array
     {
         return [
-            [['apiKey', 'apiSecret', 'pluginRepositoryDomain'], 'required'],
+            [['apiKey', 'apiSecret', 'pluginRepositoryDomain', 'title', 'description'], 'required'],
         ];
     }
 }

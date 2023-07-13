@@ -34,10 +34,25 @@
     }) }}
 
     {{ forms.fileField({
-        label: 'test',
-        id: 'live-chat-widget-logo',
-        name: 'liveChatWidgetLogo',
-        value: settings.liveChatWidgetLogo,
+        label: 'Avatar',
+        id: 'avatarUrl',
+        name: 'avatarUrl',
+        value: settings.avatarUrl,
     }) }}
 
+    {{ forms.textField({
+        label: 'Title'|t('app'),
+        id: 'title',
+        name: 'title',
+        value: settings.title,
+        size: 50,
+    }) }}
+
+    {{ forms.textField({
+        label: 'Description'|t('app'),
+        id: 'description',
+        name: 'description',
+        value: settings.description,
+        size: 50,
+    }) }}
 {% endblock %}
