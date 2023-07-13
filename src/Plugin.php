@@ -46,7 +46,26 @@ class Plugin extends \craft\base\Plugin
             }
         );
 
+        Craft::$app->view->hook('whatsrabbit-live-chat', [$this, 'getLiveChatWidget']);
+
+        \Craft::$app->getView()->registerCssFile("http://localhost:4401/angular-dist/styles.css");
+        \Craft::$app->getView()->registerJsFile("http://localhost:4401/angular-dist/runtime.js");
+        \Craft::$app->getView()->registerJsFile("http://localhost:4401/angular-dist/polyfills.js");
+        \Craft::$app->getView()->registerJsFile("http://localhost:4401/angular-dist/vendor.js");
+        \Craft::$app->getView()->registerJsFile("http://localhost:4401/angular-dist/main.js");
+
+
         parent::init();
+    }
+
+    public function getLiveChatWidget(array &$context): string {
+        return '<whatsrabbit-live-chat-widget
+                        avatar-url="/rabbit-avatar.jpg"
+                        login-url="http://localhost:4401/login-proxy.php"
+                        whatsapp-url="https://wa.me/message/6UNK3375VBFLN1"
+                        welcome-title="Rabbit | Hop into the future"
+                        welcome-description="Heb je een vraag of wil je meer informatie? Neem dan contact met ons op via:"
+                    ></whatsrabbit-live-chat-widget>';
     }
 
     protected function createSettingsModel(): ?Model
