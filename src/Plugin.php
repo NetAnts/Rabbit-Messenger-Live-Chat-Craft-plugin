@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NetAnts\WhatsRabbitLiveChat;
 
 use Craft;
 use craft\base\Model;
 use craft\events\RegisterCpNavItemsEvent;
+use craft\events\RegisterUrlRulesEvent;
 use craft\web\twig\variables\Cp;
+use craft\web\UrlManager;
 use NetAnts\WhatsRabbitLiveChat\Model\Settings;
 use yii\base\Event;
 
@@ -40,6 +44,13 @@ class Plugin extends \craft\base\Plugin
                 ];
             }
         );
+
+        /**
+         * Register api route
+         */
+        Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_SITE_URL_RULES, function (RegisterUrlRulesEvent $e) {
+            $e->rules['whatsrabbit-live-chat'] = 'login/getToken';
+        });
 
         /**
          * Register live chat hook and files

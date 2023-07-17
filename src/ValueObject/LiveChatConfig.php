@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NetAnts\WhatsRabbitLiveChat\ValueObject;
 
 use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
@@ -47,7 +49,7 @@ class LiveChatConfig
             $data['title'],
             $data['description'],
             $data['whatsAppUrl'],
-            $data['loginUrl'] ?? ''
+            '/actions/whatsrabbit-live-chat/login/get-token'
         );
     }
 }

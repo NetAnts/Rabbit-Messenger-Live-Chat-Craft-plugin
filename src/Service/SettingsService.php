@@ -8,14 +8,13 @@ use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
 
 class SettingsService
 {
-    private const PLUGIN_REPO_DEV_URL = 'plugins-acceptance.whatsrabbit.com';
     private const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
     public string $pluginRepoUrl;
 
     public function __construct(
         private Craft $craft,
     ) {
-        $this->pluginRepoUrl = getenv('RW_LC_DEV_MODE') ? self::PLUGIN_REPO_DEV_URL : self::PLUGIN_REPO_PROD_URL;
+        $this->pluginRepoUrl = getenv('PLUGIN_REPO_HOST') ?: self::PLUGIN_REPO_PROD_URL;
     }
 
     public function saveSettings(PluginInterface|null $plugin, LiveChatConfig $liveChatConfig): bool

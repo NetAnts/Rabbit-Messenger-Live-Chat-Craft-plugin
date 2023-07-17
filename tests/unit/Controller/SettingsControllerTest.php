@@ -28,7 +28,7 @@ class SettingsControllerTest extends TestCase
         $config = [];
         $this->craft = Mockery::mock(Craft::class);
         $this->settingsService = Mockery::mock(SettingsService::class);
-        $this->controller = new SettingsController($id, $module, $config, $this->settingsService, $this->craft);
+        $this->controller = new SettingsController($id, $module, $this->settingsService, $this->craft, $config);
     }
 
 

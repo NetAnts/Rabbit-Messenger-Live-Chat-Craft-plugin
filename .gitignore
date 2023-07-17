@@ -7,3 +7,4 @@ tests/_output/*
 coverage
 .phpunit.cache
 .phpcs-cache
+auth.json
