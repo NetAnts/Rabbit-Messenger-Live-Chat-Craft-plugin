@@ -4,8 +4,19 @@
 {% set fullPageForm = true %}
 {% set settings = craft.app.getPlugins().getPlugin('whatsrabbit-live-chat').getSettings() %}
 {% set foundAsset = craft.assets().id(settings.avatarAssetId) %}
+{% set crumbs  = [
+    {
+        label: 'What\'sRabbit LiveChat'|t('whatsrabbit-live-chat'),
+        url: url('whatsrabbit-live-chat'),
+    },
+    {
+        label: 'Settings'|t('whatsrabbit-live-chat'),
+        url: url('whatsrabbit-live-chat'),
+    },
+]%}
 
 {% block mainFormAttributes -%}
+    {# We need this in order to submit the avatar #}
     {{ parent() }} enctype="multipart/form-data"
 {%- endblock %}
 
@@ -40,7 +51,7 @@
         required: true,
         errors: settings.getErrors('imageId'),
         limit: 1,
-        elements: foundAsset,
+        elements: foundAsset ? foundAsset : [],
         criteria: { kind: 'image'}
     }) }}
 
@@ -67,15 +78,6 @@
         id: 'whats-app-url',
         name: 'whatsAppUrl',
         value: settings.whatsAppUrl,
-        size: 50,
-        required: true,
-    }) }}
-
-    {{ forms.textField({
-        label: 'Login URL'|t('app'),
-        id: 'login-url',
-        name: 'loginUrl',
-        value: settings.loginUrl,
         size: 50,
         required: true,
     }) }}
