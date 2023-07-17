@@ -33,9 +33,10 @@ default:
 .test_phpunit:
   image: "${PHP_CI_IMAGE}:${PHP_VERSION}"
   script:
-    - composer codeception
+    - composer codecept
   artifacts:
     reports:
+      junit: ".coverage/phpunit-junit-report.xml"
       coverage_report:
         coverage_format: cobertura
         path: "./coverage/coverage.xml"
@@ -222,11 +223,11 @@ publish:
   needs:
     - job: test:phpcs
       optional: false
-    - job: test:phpunit-php8.0
+    - job: test:codeception-php8.0
       optional: false
-    - job: test:phpunit-php8.1
+    - job: test:codeception-php8.1
       optional: false
-    - job: test:phpunit-php-current
+    - job: test:codeception-php-current
       optional: false
   rules:
     - if: $CI_COMMIT_TAG != null
