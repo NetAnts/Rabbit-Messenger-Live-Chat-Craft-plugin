@@ -2,10 +2,14 @@
 
 namespace NetAnts\WhatsRabbitLiveChat\Controller;
 
+use Craft;
 use craft\web\Controller;
+use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
 use NetAnts\WhatsRabbitLiveChat\Plugin;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
 use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
+use yii\base\InvalidConfigException;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 
 
@@ -15,31 +19,39 @@ class SettingsController extends Controller
         $id,
         $module,
         $config,
-        private SettingsService $settingsService,
-    ) {
+        private readonly SettingsService $settingsService,
+        private readonly Craft $craft,
+    )
+    {
         parent::__construct($id, $module, $config);
     }
 
+    /**
+     * @throws InvalidConfigException
+     * @throws BadRequestHttpException
+     */
     public function actionSave(): ?Response
     {
         $data = $this->request->getBodyParams();
-        $liveChatConfig = LiveChatConfig::createFromRequest($data);
+
+        try {
+            $liveChatConfig = LiveChatConfig::createFromRequest($data);
+        } catch (InvalidDataException $e) {
+            $this->craft::$app->session->setError('Something went wrong while creating config' . $e->getMessage());
+            return $this->redirectToPostedUrl();
+        }
 
         $saved = $this->settingsService->saveSettings(
             Plugin::getInstance(),
             $liveChatConfig,
         );
 
-        if(!$saved) {
-            $response = new Response();
-            $response->setStatusCode(500);
-            $response->data = [
-                'success' => false,
-                'mesasge' => 'something went wrong'
-            ];
-            return $response;
+        if (!$saved) {
+            $this->craft::$app->session->setError('Something went wrong while saving the plugin settings');
+            return $this->redirectToPostedUrl();
         }
 
+        $this->craft::$app->session->setSuccess('Plugin settings updated');
         return $this->redirectToPostedUrl();
     }
 }

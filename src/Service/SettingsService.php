@@ -10,12 +10,13 @@ class SettingsService
 {
     private const PLUGIN_REPO_DEV_URL = 'plugins-acceptance.whatsrabbit.com';
     private const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
+    public readonly string $pluginRepoUrl;
 
     public function __construct(
         private readonly Craft $craft,
-        private readonly AssetService $assetService,
     )
     {
+        $this->pluginRepoUrl = getenv('RW_LC_DEV_MODE') ? self::PLUGIN_REPO_DEV_URL : self::PLUGIN_REPO_PROD_URL;
     }
 
     public function saveSettings(PluginInterface $plugin, LiveChatConfig $liveChatConfig): bool
@@ -23,7 +24,7 @@ class SettingsService
         return $this->craft::$app->plugins->savePluginSettings($plugin, [
             'apiKey' => $liveChatConfig->apiKey,
             'apiSecret' => $liveChatConfig->apiSecret,
-            'pluginRepositoryDomain' => getenv('DEV_MODE') ? self::PLUGIN_REPO_DEV_URL : self::PLUGIN_REPO_PROD_URL,
+            'pluginRepositoryDomain' => $this->pluginRepoUrl,
             'avatarAssetId' => $liveChatConfig->avatarAssetId,
             'title' => $liveChatConfig->title,
             'description' => $liveChatConfig->description,

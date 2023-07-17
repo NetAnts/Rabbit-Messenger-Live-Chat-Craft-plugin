@@ -2,16 +2,17 @@
 
 namespace NetAnts\WhatsRabbitLiveChat\ValueObject;
 
-use craft\elements\Asset;
-use InvalidDataException;
+use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
 
 class LiveChatConfig
 {
     private const REQUIRED_KEYS = [
         'apiKey',
         'apiSecret',
+        'avatarAssetId',
         'title',
         'description',
+        'whatsAppUrl',
     ];
 
     private function __construct(
@@ -32,7 +33,7 @@ class LiveChatConfig
         foreach (self::REQUIRED_KEYS as $key) {
             if(
                 !array_key_exists($key, $data) ||
-                !isset($key, $data)
+                empty($data[$key])
             ) {
                 throw InvalidDataException::becauseOfMissingData($key);
             }
@@ -45,7 +46,7 @@ class LiveChatConfig
             $data['title'],
             $data['description'],
             $data['whatsAppUrl'],
-            $data['loginUrl']
+            'someUrl', /* TODO will be fixed in  LCWP-103 */
         );
     }
 }
