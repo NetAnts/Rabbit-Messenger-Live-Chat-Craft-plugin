@@ -9,6 +9,12 @@ variables:
   PHP_CI_IMAGE: "${CI_REGISTRY_IMAGE}/php"
   PHP_CURRENT_VERSION: "8.2" # The most recent version
 
+  COMPOSER_AUTH_TOKEN: "$CI_JOB_TOKEN"
+  COMPOSER_AUTH_USER: job-token
+  COMPOSER_AUTH_HOST: "$CI_SERVER_HOST"
+  COMPOSER_AUTH: '{"gitlab-oauth":{"$CI_SERVER_HOST":"$CI_JOB_TOKEN"}}'
+
+
 default:
   tags:
     - docker
