@@ -31,7 +31,9 @@
         }
     },
     "scripts": {
-        "codecept": "./vendor/bin/codecept run unit --coverage-xml"
+        "codecept": "./vendor/bin/codecept run unit --coverage-xml",
+        "cs-check": "phpcs",
+        "ci-phpcs": "@cs-check --report=junit --report-file=./.coverage/.phpcs-junit-report.xml"
     },
     "extra": {
         "name": "What'sRabbit LiveChat",
