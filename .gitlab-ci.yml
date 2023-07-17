@@ -33,13 +33,11 @@ default:
 .test_phpunit:
   image: "${PHP_CI_IMAGE}:${PHP_VERSION}"
   script:
-    - composer ci-phpunit
+    - composer codeception
   artifacts:
     reports:
-      junit: ".coverage/phpunit-junit-report.xml"
       coverage_report:
-        coverage_format: cobertura
-        path: ".coverage/phpunit-cobertura-report.xml"
+        path: "./coverage/coverage.xml"
 
 
 # -- STAGE // Build base containers --------------------------------------------------------------------------------------------------------
@@ -157,7 +155,7 @@ test:phpcs:
     reports:
       junit: ".coverage/phpcs-junit-report.xml"
 
-test:phpunit-php8.0:
+test:codeception-php8.0:
   variables:
     PHP_VERSION: '8.0'
   extends:
@@ -176,7 +174,7 @@ test:phpunit-php8.0:
         - src/**/*
         - test/**/*
 
-test:phpunit-php8.1:
+test:codeception-php8.1:
   variables:
     PHP_VERSION: '8.1'
   extends:
@@ -195,7 +193,7 @@ test:phpunit-php8.1:
         - src/**/*
         - test/**/*
 
-test:phpunit-php-current:
+test:codeception-php-current:
   variables:
     PHP_VERSION: ${PHP_CURRENT_VERSION}
   extends:

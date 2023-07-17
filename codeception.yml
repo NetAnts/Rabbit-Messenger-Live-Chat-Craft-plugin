@@ -5,7 +5,7 @@ paths:
   data: tests/_data
   support: tests/_support
   envs: tests/_envs
-  output: tests/_output
+  output: ./coverage
 bootstrap: _bootstrap.php
 params:
   - tests/.env
@@ -31,6 +31,10 @@ modules:
       projectConfig: {}
       migrations: []
       plugins: []
+#     TODO fix in near future
+#        whatsrabbit-live-chat:
+#          class: '\NetAnts\WhatsRabbitLiveChat\Plugin'
+#          handle: whatsrabbit-live-chat
       cleanup: true
       transaction: true
       fullMock: false

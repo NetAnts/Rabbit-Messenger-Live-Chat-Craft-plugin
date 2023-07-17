@@ -78,4 +78,28 @@ class SettingsControllerTest extends TestCase
             $this->craft::$app->session->getError()
         );
     }
+
+    public function testActionSaveButLiveChatConfigCannotBeCreated(): void
+    {
+        $request = Mockery::mock(Request::class);
+        $request->expects('getBodyParams')->andReturn([
+            'apiKey' => 'some-api-key',
+            'apiSecret' => 'some-api-secret',
+            'title' => 'Some title',
+            'description' => 'Some description',
+            'avatarAssetId' => 'some-avatar-id',
+            'loginUrl' => '',
+        ]);
+        $request->expects('getValidatedBodyParam')->andReturn(null);
+        $request->expects('getPathInfo')->andReturn('/api');
+        $this->settingsService->expects('saveSettings')->withAnyArgs()->andReturn(false);
+        $this->controller->request = $request;
+        $response = $this->controller->actionSave();
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(302, $response->getStatusCode());
+        $this->assertSame(
+            'Something went wrong while creating configCould not create LiveChatConfig because the following data is missing "whatsAppUrl"',
+            $this->craft::$app->session->getError()
+        );
+    }
 }

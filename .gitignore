@@ -4,5 +4,6 @@ composer.lock
 
 tests/_craft/storage/*
 tests/_output/*
+coverage
 .phpunit.cache
 .phpcs-cache
