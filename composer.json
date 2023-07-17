@@ -43,7 +43,8 @@
         "allow-plugins": {
             "yiisoft/yii2-composer": true,
             "craftcms/plugin-installer": true
-        }
+        },
+        "gitlab-domains": ["gitlab.netants.nl"]
     },
     "require": {
         "craftcms/cms": "^4.4",
