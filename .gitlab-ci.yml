@@ -49,6 +49,7 @@ build-base:php-php8.0:
   extends:
     - .build_image_php
   rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       changes:
         - docker/**/*
@@ -59,6 +60,7 @@ build-base:php-php8.1:
   extends:
     - .build_image_php
   rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       changes:
         - docker/**/*
@@ -69,6 +71,7 @@ build-base:php-current:
   extends:
     - .build_image_php
   rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       changes:
         - docker/**/*
