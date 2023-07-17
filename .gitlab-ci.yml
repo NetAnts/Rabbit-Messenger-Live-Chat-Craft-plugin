@@ -33,10 +33,10 @@ default:
 .test_phpunit:
   image: "${PHP_CI_IMAGE}:${PHP_VERSION}"
   script:
+    - touch tests/.env
     - composer codecept
   artifacts:
     reports:
-      junit: ".coverage/phpunit-junit-report.xml"
       coverage_report:
         coverage_format: cobertura
         path: "./coverage/coverage.xml"
