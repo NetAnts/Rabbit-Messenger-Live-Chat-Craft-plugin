@@ -1,0 +1,3 @@
+#!/bin/sh
+PACKAGE_ROOT=$(cd -P -- "$(dirname -- "$0")/.." && pwd -P)
+eval \"${PACKAGE_ROOT}/bin/docker-run\" ./vendor/bin/phpcs "${@}"

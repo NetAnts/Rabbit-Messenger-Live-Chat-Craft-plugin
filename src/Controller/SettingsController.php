@@ -10,19 +10,18 @@ use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
 use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
 use yii\base\InvalidConfigException;
 use yii\web\BadRequestHttpException;
+use yii\base\Module;
 use yii\web\Response;
-
 
 class SettingsController extends Controller
 {
     public function __construct(
-        $id,
-        $module,
-        $config,
-        private readonly SettingsService $settingsService,
-        private readonly Craft $craft,
-    )
-    {
+        string $id,
+        Module $module,
+        array $config,
+        private SettingsService $settingsService,
+        private Craft $craft,
+    ) {
         parent::__construct($id, $module, $config);
     }
 

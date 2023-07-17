@@ -9,9 +9,8 @@ use craft\web\UploadedFile;
 class AssetService
 {
     public function __construct(
-        private readonly Craft $craft,
-    )
-    {
+        private Craft $craft,
+    ) {
     }
 
     public function createAsset(string $fileName): Asset
@@ -38,7 +37,7 @@ class AssetService
 
         $success = $this->craft::$app->getElements()->saveElement($asset);
 
-        if(!$success) {
+        if (!$success) {
             throw new \Exception();
         }
 

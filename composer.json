@@ -11,11 +11,23 @@
     }
   ],
   "require-dev": {
-    "craftcms/cms": "^4.4.0"
+    "mockery/mockery": "^1.6",
+    "phpunit/phpunit": "^9.6",
+    "php-mock/php-mock-mockery": "^1.4",
+    "codeception/codeception": "^5.0",
+    "vlucas/phpdotenv": "^5.5",
+    "codeception/module-yii2": "^1.1",
+    "codeception/module-asserts": "^3.0",
+    "squizlabs/php_codesniffer": "^3.7"
   },
   "autoload": {
     "psr-4": {
       "NetAnts\\WhatsRabbitLiveChat\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "NetAnts\\WhatsRabbitLiveChatTest\\": "test/"
     }
   },
   "extra": {
@@ -27,5 +39,8 @@
       "yiisoft/yii2-composer": true,
       "craftcms/plugin-installer": true
     }
+  },
+  "require": {
+    "craftcms/cms": "^4.4"
   }
 }

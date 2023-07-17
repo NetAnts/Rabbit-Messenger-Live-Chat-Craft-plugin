@@ -1,0 +1,37 @@
+actor: Tester
+paths:
+  tests: tests
+  log: tests/_output
+  data: tests/_data
+  support: tests/_support
+  envs: tests/_envs
+  output: tests/_output
+bootstrap: _bootstrap.php
+params:
+  - tests/.env
+coverage:
+  enabled: true
+  include:
+    - src/*
+  exclude:
+    - src/etc/*
+    - src/migrations/*
+    - src/templates/*
+    - src/translations/*
+    - src/web/assets/*
+    - docs/*
+    - templates/*
+    - tests/*
+    - vendor/*
+modules:
+  config:
+    \craft\test\Craft:
+      configFile: "tests/_craft/config/test.php"
+      entryUrl: "http://test.craftcms.test/index.php"
+      projectConfig: {}
+      migrations: []
+      plugins: []
+      cleanup: true
+      transaction: true
+      fullMock: false
+      dbSetup: { clean: false, setupCraft: false }

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+PACKAGE_ROOT=$(cd -P -- "$(dirname -- "$0")/.." && pwd -P)
+export $(grep -v '^#' "${PACKAGE_ROOT}/.env" | xargs);
+CONTAINER_HASH=$(docker build --quiet --build-arg PHP_VERSION=${PHP_VERSION} "${PACKAGE_ROOT}/docker/php/.")
+
+docker run \
+  --rm \
+  --interactive \
+  --tty \
+  --mount type=bind,source="${PACKAGE_ROOT}",target=/php-package \
+  --workdir "/php-package" \
+  ${CONTAINER_HASH} \
+  "${@}"
