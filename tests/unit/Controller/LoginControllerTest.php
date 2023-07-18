@@ -15,6 +15,7 @@ use yii\base\Module;
 class LoginControllerTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
+
     private SettingsService|MockInterface $settingsService;
     private LoginController $loginController;
     protected function setUp(): void

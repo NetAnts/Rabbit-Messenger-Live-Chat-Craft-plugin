@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 class SettingsServiceTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
+
     private Craft | MockInterface $craft;
     private SettingsService $service;
 
