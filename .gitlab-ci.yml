@@ -33,9 +33,16 @@ default:
 
 .test_phpunit:
   image: "${PHP_CI_IMAGE}:${PHP_VERSION}"
+  variables:
+    MYSQL_ROOT_PASSWORD: "test"
+    MYSQL_PASSWORD: "test"
+    MYSQL_USER: "test"
+    MYSQL_DATABASE: "test"
   script:
-    - touch tests/.env
+    - cp tests/.env.test tests/.env
     - composer codecept
+  services:
+    - mysql:8.0
   artifacts:
     reports:
       coverage_report:
