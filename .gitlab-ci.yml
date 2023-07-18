@@ -168,11 +168,11 @@ test:phpcs:
         - src/**/*
         - test/**/*
   script:
-    - mkdir .coverage
+    - mkdir ./.coverage
     - composer ci-phpcs
   artifacts:
     reports:
-      junit: "coverage/.phpcs-junit-report.xml"
+      junit: "./.coverage/.phpcs-junit-report.xml"
 
 test:codeception-php8.0:
   variables:
