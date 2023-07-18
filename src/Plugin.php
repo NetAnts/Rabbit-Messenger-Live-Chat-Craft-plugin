@@ -17,6 +17,8 @@ class Plugin extends \craft\base\Plugin
 {
     public bool $hasCpSettings = true;
 
+    public const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
+
     public function init(): void
     {
         $this->controllerNamespace = 'NetAnts\\WhatsRabbitLiveChat\\Controller';
@@ -54,10 +56,10 @@ class Plugin extends \craft\base\Plugin
          */
         Craft::$app->view->hook('whatsrabbit-live-chat', [$this, 'getLiveChatWidget']);
 
-        // TODO Replace with prod url and files
-        Craft::$app->getView()->registerCssFile("https://assets.plugins-acceptance.whatsrabbit.com/styles.css");
-        Craft::$app->getView()->registerJsFile("https://assets.plugins-acceptance.whatsrabbit.com/polyfills.js");
-        Craft::$app->getView()->registerJsFile("https://assets.plugins-acceptance.whatsrabbit.com/main.js");
+        $pluginRepoUrl = getenv('PLUGIN_REPO_HOST') ?: self::PLUGIN_REPO_PROD_URL;
+        Craft::$app->getView()->registerCssFile(sprintf('https://assets.%s/styles.css', $pluginRepoUrl));
+        Craft::$app->getView()->registerJsFile(sprintf('https://assets.%s/polyfills.js', $pluginRepoUrl));
+        Craft::$app->getView()->registerJsFile(sprintf('https://assets.%s/main.js', $pluginRepoUrl));
         parent::init();
     }
 
@@ -65,7 +67,7 @@ class Plugin extends \craft\base\Plugin
     {
         $settings = $this->getPluginInstance()->getSettings();
 
-        $asset = Craft::$app->assets->getAssetById($settings['avatarAssetId']);
+        $asset = Craft::$app->assets->getAssetById((int) $settings['avatarAssetId'][0]);
 
         return sprintf(
             '<whatsrabbit-live-chat-widget
@@ -76,7 +78,7 @@ class Plugin extends \craft\base\Plugin
                         welcome-description="%s"
                     ></whatsrabbit-live-chat-widget>',
             $asset?->url,
-            $settings['loginUrl'],
+            '/actions/whatsrabbit-live-chat/login/get-token',
             $settings['whatsAppUrl'],
             $settings['title'],
             $settings['description']
