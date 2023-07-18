@@ -17,10 +17,5 @@ services:
     image: mysql:8.0
     ports:
       - "3307:3307"
-    volumes:
-      - db:/var/lib/mysql/
     env_file:
       - .env
-
-volumes:
-  db:

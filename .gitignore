@@ -1,5 +1,6 @@
 vendor
 .env
+.composer
 composer.lock
 
 tests/_craft/storage/*
