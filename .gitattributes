@@ -1,5 +1,4 @@
 # Do not export those files in the Composer archive (lighter dependency)
-/.idea
 /.editorconfig export-ignore
 /.env.local export-ignore
 /.gitattributes export-ignore
@@ -9,6 +8,7 @@
 /docker-compose.yml export-ignore
 /phpcs.xml export-ignore
 /phpunit.xml export-ignore
+/.idea/ export-ignore
 /bin/ export-ignore
 /docker/ export-ignore
 /tests/ export-ignore
