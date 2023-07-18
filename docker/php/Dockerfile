@@ -18,3 +18,15 @@ RUN docker-php-ext-install pdo pdo_mysql
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
+# Configure the environment for a separate user to run Apache
+ARG HOST_UID=1000
+ARG HOST_GID=1000
+
+RUN chown --recursive ${HOST_UID}:${HOST_GID} /var/www
+RUN addgroup --gid ${HOST_GID} netants; \
+    adduser netants --uid ${HOST_UID} --gid ${HOST_GID} --shell /bin/bash --home /var/www/html --disabled-password --gecos "";
+
+VOLUME ["/var/www/html"]
+WORKDIR "/var/www/html"
+
+USER ${HOST_UID}

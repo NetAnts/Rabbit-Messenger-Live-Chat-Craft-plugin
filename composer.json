@@ -43,9 +43,17 @@
         "allow-plugins": {
             "yiisoft/yii2-composer": true,
             "craftcms/plugin-installer": true
-        }
+        },
+        "gitlab-domains": ["gitlab.netants.nl"]
     },
     "require": {
-        "craftcms/cms": "^4.4"
+        "craftcms/cms": "^4.4",
+        "whatsrabbit/live-chat-plugin-core": "^0.0.2"
+    },
+    "repositories": {
+        "netants": {
+            "type": "composer",
+            "url": "https://gitlab.netants.nl/api/v4/group/116/-/packages/composer/"
+        }
     }
 }

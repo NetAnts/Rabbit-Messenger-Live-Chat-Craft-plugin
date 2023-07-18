@@ -5,22 +5,15 @@ namespace NetAnts\WhatsRabbitLiveChatTest;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use NetAnts\WhatsRabbitLiveChat\Plugin;
 use PHPUnit\Framework\TestCase;
-use UnitTester;
 
 class PluginTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
-    /**
-     * @var UnitTester
-     */
-    protected UnitTester $tester;
-
-    private Plugin|null $plugin;
+    private Plugin $plugin;
 
     protected function setUp(): void
     {
-        $this->markTestSkipped('Will be fixed in the future');
         $this->plugin = Plugin::getInstance();
     }
 

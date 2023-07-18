@@ -9,6 +9,7 @@ variables:
   PHP_CI_IMAGE: "${CI_REGISTRY_IMAGE}/php"
   PHP_CURRENT_VERSION: "8.2" # The most recent version
 
+
 default:
   tags:
     - docker
@@ -32,9 +33,16 @@ default:
 
 .test_phpunit:
   image: "${PHP_CI_IMAGE}:${PHP_VERSION}"
+  variables:
+    MYSQL_ROOT_PASSWORD: "test"
+    MYSQL_PASSWORD: "test"
+    MYSQL_USER: "test"
+    MYSQL_DATABASE: "test"
   script:
-    - touch tests/.env
+    - cp tests/.env.test tests/.env
     - composer codecept
+  services:
+    - mysql:8.0
   artifacts:
     reports:
       coverage_report:
@@ -50,6 +58,8 @@ build-base:php-php8.0:
     - .build_image_php
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - docker/**/*
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       changes:
         - docker/**/*
@@ -61,6 +71,8 @@ build-base:php-php8.1:
     - .build_image_php
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - docker/**/*
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       changes:
         - docker/**/*
@@ -72,6 +84,8 @@ build-base:php-current:
     - .build_image_php
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - docker/**/*
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       changes:
         - docker/**/*
@@ -154,11 +168,11 @@ test:phpcs:
         - src/**/*
         - test/**/*
   script:
-    - mkdir .coverage
+    - mkdir ./.coverage
     - composer ci-phpcs
   artifacts:
     reports:
-      junit: ".coverage/phpcs-junit-report.xml"
+      junit: "./.coverage/.phpcs-junit-report.xml"
 
 test:codeception-php8.0:
   variables:

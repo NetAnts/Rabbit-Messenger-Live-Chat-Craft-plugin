@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace NetAnts\WhatsRabbitLiveChat\Controller;
 
 use Craft;
@@ -18,9 +20,9 @@ class SettingsController extends Controller
     public function __construct(
         string $id,
         Module $module,
-        array $config,
         private SettingsService $settingsService,
         private Craft $craft,
+        array $config = [],
     ) {
         parent::__construct($id, $module, $config);
     }

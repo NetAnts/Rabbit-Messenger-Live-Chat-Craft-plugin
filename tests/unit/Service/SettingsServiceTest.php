@@ -4,30 +4,31 @@ namespace NetAnts\WhatsRabbitLiveChatTest\Service;
 
 use Craft;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
-use NetAnts\WhatsRabbitLiveChat\Service\AssetService;
+use NetAnts\WhatsRabbitLiveChat\Plugin;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
 use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
 use PHPUnit\Framework\TestCase;
 
-class SettingServiceTest extends TestCase
+class SettingsServiceTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     private Craft | MockInterface $craft;
     private SettingsService $service;
 
     protected function setUp(): void
     {
         $this->craft = Mockery::mock(Craft::class);
-        $this->assetService = Mockery::mock(AssetService::class);
         $this->service = new SettingsService(
             $this->craft,
-            $this->assetService,
         );
     }
 
     public function testSaveSettings(): void
     {
-        $plugin = Mockery::mock(\craft\base\Plugin::class);
+        $plugin = Mockery::mock(Plugin::class);
         $liveChatConfig = LiveChatConfig::createFromRequest([
             'apiKey' => 'some-api-key',
             'apiSecret' => 'some-api-secret',
@@ -50,11 +51,11 @@ class SettingServiceTest extends TestCase
         ], false);
         $settingsModel->expects('validate')->andReturnTrue();
         $settingsModel->expects('toArray')->andReturn([]);
-        $plugin->expects('getSettings')->andReturn($settingsModel);
+        $plugin->expects('getSettings')->andReturn($settingsModel)->times(3);
         $plugin->expects('beforeSaveSettings')->andReturnTrue();
         $plugin->expects('afterSaveSettings');
-        $plugin->expects('has')->andReturnTrue();
-        $plugin->expects('get')->andReturnNull();
+        $plugin->expects('has')->andReturnTrue()->twice();
+        $plugin->expects('get')->andReturnNull()->twice();
 
         $response = $this->service->saveSettings($plugin, $liveChatConfig);
         $this->assertTrue($response);
