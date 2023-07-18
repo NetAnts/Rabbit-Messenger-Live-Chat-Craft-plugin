@@ -1,0 +1,84 @@
+{% extends '_layouts/cp' %}
+{% import "_includes/forms" as forms %}
+{% set title = "What'sRabbit LiveChat"|t('app') %}
+{% set fullPageForm = true %}
+{% set settings = craft.app.getPlugins().getPlugin('whatsrabbit-live-chat').getSettings() %}
+{% set foundAsset = craft.assets().id(settings.avatarAssetId) %}
+{% set crumbs  = [
+    {
+        label: 'What\'sRabbit LiveChat'|t('whatsrabbit-live-chat'),
+        url: url('whatsrabbit-live-chat'),
+    },
+    {
+        label: 'Settings'|t('whatsrabbit-live-chat'),
+        url: url('whatsrabbit-live-chat'),
+    },
+]%}
+
+{% block mainFormAttributes -%}
+    {# We need this in order to submit the avatar #}
+    {{ parent() }} enctype="multipart/form-data"
+{%- endblock %}
+
+{% block content %}
+    {{ actionInput('whatsrabbit-live-chat/settings/save') }}
+    {{ forms.textField({
+        label: 'API Key'|t('app'),
+        id: 'api-key',
+        name: 'apiKey',
+        value: settings.apiKey,
+        inputmode: 'text',
+        size: 50,
+        required: true,
+    }) }}
+
+    {{ forms.textField({
+        label: 'API Secret'|t('app'),
+        id: 'api-secret',
+        name: 'apiSecret',
+        value: settings.apiSecret,
+        inputmode: 'text',
+        size: 50,
+        required: true,
+    }) }}
+
+    {{ forms.elementSelectField({
+        label: "Avatar",
+        id: "avatarAssetId",
+        name: "avatarAssetId",
+        viewMode: "list",
+        elementType: 'craft\\elements\\Asset',
+        required: true,
+        errors: settings.getErrors('imageId'),
+        limit: 1,
+        elements: foundAsset ? foundAsset : [],
+        criteria: { kind: 'image'}
+    }) }}
+
+    {{ forms.textField({
+        label: 'Title'|t('app'),
+        id: 'title',
+        name: 'title',
+        value: settings.title,
+        size: 50,
+        required: true,
+    }) }}
+
+    {{ forms.textField({
+        label: 'Description'|t('app'),
+        id: 'description',
+        name: 'description',
+        value: settings.description,
+        size: 50,
+        required: true,
+    }) }}
+
+    {{ forms.textField({
+        label: 'WhatsApp URL'|t('app'),
+        id: 'whats-app-url',
+        name: 'whatsAppUrl',
+        value: settings.whatsAppUrl,
+        size: 50,
+        required: true,
+    }) }}
+{% endblock %}
