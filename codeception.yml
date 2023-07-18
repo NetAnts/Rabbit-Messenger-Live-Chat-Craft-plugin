@@ -30,11 +30,10 @@ modules:
       entryUrl: "http://test.craftcms.test/index.php"
       projectConfig: {}
       migrations: []
-      plugins: []
-#     TODO fix in near future
-#        whatsrabbit-live-chat:
-#          class: '\NetAnts\WhatsRabbitLiveChat\Plugin'
-#          handle: whatsrabbit-live-chat
+      plugins:
+        whatsrabbit-live-chat:
+          class: '\NetAnts\WhatsRabbitLiveChat\Plugin'
+          handle: whatsrabbit-live-chat
       cleanup: true
       transaction: true
       fullMock: false

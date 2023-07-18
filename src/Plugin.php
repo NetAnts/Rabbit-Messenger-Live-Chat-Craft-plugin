@@ -13,9 +13,6 @@ use craft\web\UrlManager;
 use NetAnts\WhatsRabbitLiveChat\Model\Settings;
 use yii\base\Event;
 
-/**
- * @codeCoverageIgnore TODO fix in the near future
- */
 class Plugin extends \craft\base\Plugin
 {
     public bool $hasCpSettings = true;

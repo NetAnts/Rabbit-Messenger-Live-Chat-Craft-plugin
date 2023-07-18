@@ -8,6 +8,7 @@ use Craft;
 use craft\test\TestSetup;
 use craft\web\Request;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use NetAnts\WhatsRabbitLiveChat\Controller\SettingsController;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
@@ -17,6 +18,8 @@ use yii\web\Response;
 
 class SettingsControllerTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     private SettingsService|MockInterface $settingsService;
     private Craft | MockInterface $craft;
     private SettingsController $controller;
@@ -32,7 +35,7 @@ class SettingsControllerTest extends TestCase
     }
 
 
-    public function testActionSave(): void
+    public function testSavingAction(): void
     {
         $request = Mockery::mock(Request::class);
         $request->expects('getBodyParams')->andReturn([
@@ -92,7 +95,6 @@ class SettingsControllerTest extends TestCase
         ]);
         $request->expects('getValidatedBodyParam')->andReturn(null);
         $request->expects('getPathInfo')->andReturn('/api');
-        $this->settingsService->expects('saveSettings')->withAnyArgs()->andReturn(false);
         $this->controller->request = $request;
         $response = $this->controller->actionSave();
         $this->assertInstanceOf(Response::class, $response);
