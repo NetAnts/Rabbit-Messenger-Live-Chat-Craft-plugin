@@ -4,17 +4,17 @@ namespace NetAnts\WhatsRabbitLiveChat\Service;
 
 use Craft;
 use craft\base\PluginInterface;
+use NetAnts\WhatsRabbitLiveChat\Plugin;
 use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
 
 class SettingsService
 {
-    private const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
     public string $pluginRepoUrl;
 
     public function __construct(
         private Craft $craft,
     ) {
-        $this->pluginRepoUrl = getenv('PLUGIN_REPO_HOST') ?: self::PLUGIN_REPO_PROD_URL;
+        $this->pluginRepoUrl = getenv('PLUGIN_REPO_HOST') ?: Plugin::PLUGIN_REPO_PROD_URL;
     }
 
     public function saveSettings(PluginInterface|null $plugin, LiveChatConfig $liveChatConfig): bool
@@ -30,7 +30,6 @@ class SettingsService
             'title' => $liveChatConfig->title,
             'description' => $liveChatConfig->description,
             'whatsAppUrl' => $liveChatConfig->whatsAppUrl,
-            'loginUrl' => $liveChatConfig->loginUrl,
         ]);
     }
 }
