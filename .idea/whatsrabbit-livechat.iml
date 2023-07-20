@@ -5,7 +5,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/whatsrabbit/live-chat-plugin-core" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-server-handler" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

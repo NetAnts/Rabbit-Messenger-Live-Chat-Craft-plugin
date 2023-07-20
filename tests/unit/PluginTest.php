@@ -82,7 +82,8 @@ class PluginTest extends TestCase
         $this->assertInstanceOf(Settings::class, $settings);
     }
 
-    public function testGetLiveChatWidget(): void {
+    public function testGetLiveChatWidget(): void
+    {
         $context = [];
         $settings = [
             'avatarAssetId' => [0],
