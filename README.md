@@ -18,4 +18,5 @@ This plugin injects a LiveChat widget into your website (when necessary config i
    4. `Title` _The title which will show in the LiveChat widget on your website_
    5. `Description` _The description/short text which will show in the LiveChat widget on your website_
    6. `WhatsApp URL` _The WhatsApp button in the livechat widget will redirect to this URL when a user does not want to start a LiveChat_
-5. Once all of these fields are filled in and saved, the LiveChat widget will show on your website and you can start with receiving LiveChats within your What'sRabbit application. 
+5. Now it's time to add the following Twig hook to your page template: `{% hook 'whatsrabbit-live-chat' %}`. 
+6. Once all of these steps have been done, the LiveChat widget will show on your website and you can start with receiving LiveChats within your What'sRabbit application. 
