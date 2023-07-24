@@ -20,7 +20,7 @@ class LiveChatConfig
     private function __construct(
         public string $apiKey,
         public string $apiSecret,
-        public string $avatarAssetId,
+        public array $avatarAssetId,
         public string $title,
         public string $description,
         public string $whatsAppUrl,
@@ -45,7 +45,7 @@ class LiveChatConfig
         return new self(
             $data['apiKey'],
             $data['apiSecret'],
-            $data['avatarAssetId'][0],
+            $data['avatarAssetId'],
             $data['title'],
             $data['description'],
             $data['whatsAppUrl'],

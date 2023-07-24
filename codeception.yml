@@ -37,4 +37,4 @@ modules:
       cleanup: true
       transaction: true
       fullMock: false
-      dbSetup: { clean: true, setupCraft: true }
+      dbSetup: { clean: false, setupCraft: false }

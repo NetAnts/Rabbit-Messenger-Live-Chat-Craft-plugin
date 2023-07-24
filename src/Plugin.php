@@ -30,6 +30,7 @@ class Plugin extends \craft\base\Plugin
             Cp::class,
             Cp::EVENT_REGISTER_CP_NAV_ITEMS,
             function (RegisterCpNavItemsEvent $event) {
+                // @codeCoverageIgnoreStart
                 $event->navItems[] = [
                     'url' => 'whatsrabbit-live-chat',
                     'label' => 'What\'sRabbit LiveChat',
@@ -41,6 +42,7 @@ class Plugin extends \craft\base\Plugin
                         ]
                     ]
                 ];
+                // @codeCoverageIgnoreEnd
             }
         );
 
@@ -48,7 +50,9 @@ class Plugin extends \craft\base\Plugin
          * Register api route
          */
         Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_SITE_URL_RULES, function (RegisterUrlRulesEvent $e) {
+            // @codeCoverageIgnoreStart
             $e->rules['whatsrabbit-live-chat'] = 'login/getToken';
+            // @codeCoverageIgnoreEnd
         });
 
         /**
@@ -85,11 +89,13 @@ class Plugin extends \craft\base\Plugin
         );
     }
 
+    /** @codeCoverageIgnore cannot be tested */
     protected function createSettingsModel(): ?Model
     {
         return new Settings();
     }
 
+    /** @codeCoverageIgnore cannot be tested */
     protected function settingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate(
