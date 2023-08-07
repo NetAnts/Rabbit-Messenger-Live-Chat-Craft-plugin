@@ -2,12 +2,13 @@
 
 namespace NetAnts\WhatsRabbitLiveChatTest;
 
-use craft\base\Event;
-use craft\test\EventItem;
+use craft\events\RegisterCpNavItemsEvent;
+use craft\events\RegisterUrlRulesEvent;
+use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use NetAnts\WhatsRabbitLiveChat\Model\Settings;
 use NetAnts\WhatsRabbitLiveChat\Plugin;
 use PHPUnit\Framework\TestCase;
-use UnitTester;
 
 class PluginTest extends TestCase
 {
@@ -29,10 +30,6 @@ class PluginTest extends TestCase
     public function testInit(): void
     {
         // Given
-        $navData = [
-            'label' => 'What\'sRabbit LiveChat',
-            'url' => 'whatsrabbit-live-chat',
-        ];
         $controllerNamespace = 'NetAnts\\WhatsRabbitLiveChat\\Controller';
 
         // When
@@ -40,46 +37,67 @@ class PluginTest extends TestCase
 
         // Then
         $this->assertSame($controllerNamespace, $this->plugin->controllerNamespace);
-        $this->assertSame($navData, $this->plugin->getCpNavItem());
+    }
+
+    public function testAddNavItem(): void
+    {
+        $event = Mockery::mock(RegisterCpNavItemsEvent::class);
+        $event->navItems = [];
+
+        $this->plugin->addNavItem($event);
+
+        $this->assertCount(1, $event->navItems);
+        $expectedNavItem = [
+            'url' => 'whatsrabbit-live-chat',
+            'label' => 'What\'sRabbit LiveChat',
+            'icon' => '@app/icons/envelope.svg',
+            'subnav' => [
+                [
+                    'url' => 'whatsrabbit-live-chat',
+                    'label' => 'Settings',
+                ]
+            ]
+        ];
+
+        $this->assertSame($expectedNavItem, $event->navItems[0]);
+    }
+
+    public function testAddRoute(): void
+    {
+        $event = Mockery::mock(RegisterUrlRulesEvent::class);
+        $event->rules = [];
+
+        $this->plugin->addRoute($event);
+
+        $this->assertCount(1, $event->rules);
+        $expectedRules = [
+            'whatsrabbit-live-chat' => 'login/getToken'
+        ];
+        $this->assertSame($expectedRules, $event->rules);
+    }
+
+
+    public function testCreateSettingsModel(): void
+    {
+        $settings = $this->plugin->getSettings();
+        $this->assertInstanceOf(Settings::class, $settings);
     }
 
     public function testGetLiveChatWidget(): void
     {
-        // Given
-        $data = [
-            'avatarAssetId' => ['1'],
-            'whatsAppUrl' => 'https://wa.me',
-            'title' => 'some title',
-            'description' => 'some description',
+        $context = [];
+        $settings = [
+            'avatarAssetId' => [0],
         ];
-        $this->plugin->getPluginInstance()->setSettings($data);
-        // When
-        $context = ['some data'];
-        $result = $this->plugin->getLiveChatWidget($context);
-
-        // Then
-        $this->assertSame(sprintf(
-            '<whatsrabbit-live-chat-widget
-                        avatar-url="%s"
-                        login-url="%s"
-                        whatsapp-url="%s"
-                        welcome-title="%s"
-                        welcome-description="%s"
-                    ></whatsrabbit-live-chat-widget>',
-            '', // Since there is no asset with id '1', the value is blank
-            '/actions/whatsrabbit-live-chat/login/get-token',
-            $data['whatsAppUrl'],
-            $data['title'],
-            $data['description']
-        ), $result);
-    }
-
-    public function testGetPluginInstance(): void
-    {
-        // When
-        $result = $this->plugin->getPluginInstance();
-
-        // Then
-        $this->assertInstanceOf(Plugin::class, $result);
+        $this->plugin->setSettings($settings);
+        $response = $this->plugin->getLiveChatWidget($context);
+        $expectedHtml = '<whatsrabbit-live-chat-widget
+                                    avatar-url=""
+                                    login-url="/actions/whatsrabbit-live-chat/login/get-token"
+                                    whatsapp-url=""
+                                    welcome-title=""
+                                    welcome-description=""
+                                ></whatsrabbit-live-chat-widget>';
+        $this->assertSame(preg_replace("(\s+)", "\s", $expectedHtml), preg_replace("(\s+)", "\s", $response));
     }
 }

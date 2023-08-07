@@ -6,6 +6,7 @@ namespace NetAnts\WhatsRabbitLiveChat\Controller;
 
 use craft\web\Controller;
 use GuzzleHttp\Client;
+use NetAnts\WhatsRabbitLiveChat\Factory\LiveChatServiceFactory;
 use NetAnts\WhatsRabbitLiveChat\Plugin;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
 use Whatsrabbit\LiveChatPluginCore\Exception\LiveChatException;
@@ -22,16 +23,11 @@ class LoginController extends Controller
         string $id,
         Module $module,
         private SettingsService $settingsService,
+        private LiveChatServiceFactory $liveChatServiceFactory,
         array $config = [],
     ) {
-        $settings = Plugin::getInstance()->getSettings();
-        $this->liveChatService = new LiveChatService(
-            $settings['apiKey'],
-            $settings['apiSecret'],
-            new Client(),
-            $this->settingsService->pluginRepoUrl,
-        );
         parent::__construct($id, $module, $config);
+        $this->liveChatService = $liveChatServiceFactory(LiveChatService::class, $this->settingsService);
     }
 
     /**

@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace NetAnts\WhatsRabbitLiveChatTest\Controller;
 
-use DateTimeImmutable;
+use craft\web\Request;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use NetAnts\WhatsRabbitLiveChat\Controller\LoginController;
+use NetAnts\WhatsRabbitLiveChat\Factory\LiveChatServiceFactory;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionProperty;
 use Whatsrabbit\LiveChatPluginCore\LiveChatService;
 use Whatsrabbit\LiveChatPluginCore\ValueObject\AuthenticationResponse;
 use yii\base\Module;
@@ -22,7 +23,10 @@ class LoginControllerTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     private SettingsService|MockInterface $settingsService;
+    private LiveChatServiceFactory|MockObject $liveChatServiceFactory;
+    private LiveChatService|MockInterface $liveChatService;
     private LoginController $loginController;
+
     protected function setUp(): void
     {
         $id = 'settingsController';
@@ -30,7 +34,10 @@ class LoginControllerTest extends TestCase
         $config = [];
         $this->settingsService = Mockery::mock(SettingsService::class);
         $this->settingsService->pluginRepoUrl = 'bla';
-        $this->loginController = new LoginController($id, $module, $this->settingsService, $config);
+        $this->liveChatServiceFactory = $this->createPartialMock(LiveChatServiceFactory::class, ['__invoke']);
+        $this->liveChatService = Mockery::mock(LiveChatService::class);
+        $this->liveChatServiceFactory->expects($this->once())->method('__invoke')->withAnyParameters()->willReturn($this->liveChatService);
+        $this->loginController = new LoginController($id, $module, $this->settingsService, $this->liveChatServiceFactory, $config);
     }
 
     public function testCanCreate(): void
@@ -41,23 +48,20 @@ class LoginControllerTest extends TestCase
     public function testActionGetToken(): void
     {
         // Given
-        $token = new AuthenticationResponse(
-            'externalId',
-            'token',
-            'refreshToken',
-            new DateTimeImmutable(),
-        );
-        $liveChatProperty = new ReflectionProperty($this->loginController, 'liveChatService');
-        $liveChatService = Mockery::mock(LiveChatService::class);
-        $liveChatProperty->setAccessible(true);
-        $liveChatProperty->setValue($this->loginController, $liveChatService);
-        $liveChatService->expects('fetchToken')->andReturn($token);
+        $request = Mockery::mock(Request::class);
+        $this->loginController->request = $request;
+        $authenticationResponse = AuthenticationResponse::createFromArray([
+            'externalId' => 'some-external-id',
+            'token' => 'some-token',
+            'refreshToken' => 'some-refresh-token',
+            'refreshTokenExpiresAt' => (new \DateTimeImmutable())->format(DATE_ATOM),
+        ]);
+        $this->liveChatService->expects('fetchToken')->andReturn($authenticationResponse);
 
         // When
-        $result = $this->loginController->actionGetToken();
+        $response = $this->loginController->actionGetToken();
 
         // Then
-        $this->assertInstanceOf(Response::class, $result);
-        $this->assertSame($this->loginController->asJson($token), $result);
+        $this->assertEquals(json_encode($authenticationResponse), json_encode($response->data));
     }
 }
