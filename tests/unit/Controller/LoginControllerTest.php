@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 use Whatsrabbit\LiveChatPluginCore\LiveChatService;
 use Whatsrabbit\LiveChatPluginCore\ValueObject\AuthenticationResponse;
 use yii\base\Module;
+use yii\web\Response;
 
 class LoginControllerTest extends TestCase
 {
@@ -25,6 +26,7 @@ class LoginControllerTest extends TestCase
     private LiveChatServiceFactory|MockObject $liveChatServiceFactory;
     private LiveChatService|MockInterface $liveChatService;
     private LoginController $loginController;
+
     protected function setUp(): void
     {
         $id = 'settingsController';

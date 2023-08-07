@@ -43,7 +43,7 @@ class SettingsControllerTest extends TestCase
             'apiSecret' => 'some-api-secret',
             'title' => 'Some title',
             'description' => 'Some description',
-            'avatarAssetId' => 'some-avatar-id',
+            'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
             'loginUrl' => '',
         ]);
@@ -65,7 +65,7 @@ class SettingsControllerTest extends TestCase
             'apiSecret' => 'some-api-secret',
             'title' => 'Some title',
             'description' => 'Some description',
-            'avatarAssetId' => 'some-avatar-id',
+            'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
             'loginUrl' => '',
         ]);
@@ -90,7 +90,7 @@ class SettingsControllerTest extends TestCase
             'apiSecret' => 'some-api-secret',
             'title' => 'Some title',
             'description' => 'Some description',
-            'avatarAssetId' => 'some-avatar-id',
+            'avatarAssetId' => ['some-avatar-id'],
             'loginUrl' => '',
         ]);
         $request->expects('getValidatedBodyParam')->andReturn(null);

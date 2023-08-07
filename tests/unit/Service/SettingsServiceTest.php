@@ -34,7 +34,7 @@ class SettingsServiceTest extends TestCase
             'apiSecret' => 'some-api-secret',
             'title' => 'Some title',
             'description' => 'Some description',
-            'avatarAssetId' => 'some-avatar-id',
+            'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
         ]);
         $settingsModel = Mockery::mock(\craft\base\Model::class);
@@ -66,7 +66,7 @@ class SettingsServiceTest extends TestCase
             'apiSecret' => 'some-api-secret',
             'title' => 'Some title',
             'description' => 'Some description',
-            'avatarAssetId' => 'some-avatar-id',
+            'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
         ]);
 

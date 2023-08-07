@@ -15,6 +15,7 @@ class PluginTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     private Plugin $plugin;
+    protected UnitTester $tester;
 
     protected function setUp(): void
     {
