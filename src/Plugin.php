@@ -29,27 +29,17 @@ class Plugin extends \craft\base\Plugin
         Event::on(
             Cp::class,
             Cp::EVENT_REGISTER_CP_NAV_ITEMS,
-            function (RegisterCpNavItemsEvent $event) {
-                $event->navItems[] = [
-                    'url' => 'whatsrabbit-live-chat',
-                    'label' => 'What\'sRabbit LiveChat',
-                    'icon' => '@app/icons/envelope.svg',
-                    'subnav' => [
-                        [
-                            'url' => 'whatsrabbit-live-chat',
-                            'label' => 'Settings',
-                        ]
-                    ]
-                ];
-            }
+            [$this, 'addNavItem'],
         );
 
         /**
          * Register api route
          */
-        Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_SITE_URL_RULES, function (RegisterUrlRulesEvent $e) {
-            $e->rules['whatsrabbit-live-chat'] = 'login/getToken';
-        });
+        Event::on(
+            UrlManager::class,
+            UrlManager::EVENT_REGISTER_SITE_URL_RULES,
+            [$this, 'addRoute'],
+        );
 
         /**
          * Register live chat hook and files
@@ -63,11 +53,31 @@ class Plugin extends \craft\base\Plugin
         parent::init();
     }
 
+    public function addNavItem(RegisterCpNavItemsEvent $event): void
+    {
+        $event->navItems[] = [
+            'url' => 'whatsrabbit-live-chat',
+            'label' => 'What\'sRabbit LiveChat',
+            'icon' => '@app/icons/envelope.svg',
+            'subnav' => [
+                [
+                    'url' => 'whatsrabbit-live-chat',
+                    'label' => 'Settings',
+                ]
+            ]
+        ];
+    }
+
+    public function addRoute(RegisterUrlRulesEvent $event): void
+    {
+        $event->rules['whatsrabbit-live-chat'] = 'login/getToken';
+    }
+
     public function getLiveChatWidget(array &$context): string
     {
-        $settings = $this->getPluginInstance()->getSettings();
+        $settings = $this->getSettings();
 
-        $asset = Craft::$app->assets->getAssetById((int) $settings['avatarAssetId'][0]);
+        $asset = Craft::$app->assets->getAssetById((int)$settings['avatarAssetId'][0]);
 
         return sprintf(
             '<whatsrabbit-live-chat-widget
@@ -90,6 +100,7 @@ class Plugin extends \craft\base\Plugin
         return new Settings();
     }
 
+    // @codeCoverageIgnoreStart
     protected function settingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate(
@@ -97,9 +108,5 @@ class Plugin extends \craft\base\Plugin
             ['settings' => $this->getSettings()]
         );
     }
-
-    public function getPluginInstance(): self
-    {
-        return parent::getInstance();
-    }
+    // @codeCoverageIgnoreEnd
 }

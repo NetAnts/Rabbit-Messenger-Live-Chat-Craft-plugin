@@ -6,7 +6,7 @@
         <remote-mappings server-id="php@526cbc38-9810-4260-a58f-c18045202e33">
           <settings>
             <list>
-              <mapping local-root="$PROJECT_DIR$" remote-root="/php-package" />
+              <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html" />
             </list>
           </settings>
         </remote-mappings>
