@@ -22,25 +22,6 @@
 
 {% block content %}
     {{ actionInput('whatsrabbit-live-chat/settings/save') }}
-    {{ forms.textField({
-        label: 'API Key'|t('app'),
-        id: 'api-key',
-        name: 'apiKey',
-        value: settings.apiKey,
-        inputmode: 'text',
-        size: 50,
-        required: true,
-    }) }}
-
-    {{ forms.textField({
-        label: 'API Secret'|t('app'),
-        id: 'api-secret',
-        name: 'apiSecret',
-        value: settings.apiSecret,
-        inputmode: 'text',
-        size: 50,
-        required: true,
-    }) }}
 
     {{ forms.elementSelectField({
         label: "Avatar",

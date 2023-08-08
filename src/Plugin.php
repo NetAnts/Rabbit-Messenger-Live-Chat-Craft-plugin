@@ -8,9 +8,11 @@ use Craft;
 use craft\base\Model;
 use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterUrlRulesEvent;
+use craft\web\Application;
 use craft\web\twig\variables\Cp;
 use craft\web\UrlManager;
 use NetAnts\WhatsRabbitLiveChat\Model\Settings;
+use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
 use yii\base\Event;
 
 class Plugin extends \craft\base\Plugin
@@ -18,6 +20,14 @@ class Plugin extends \craft\base\Plugin
     public bool $hasCpSettings = true;
 
     public const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
+    private SettingsService $service;
+
+
+    public function __construct($id, $parent = null, array $config = [])
+    {
+        $this->service = new SettingsService(new Craft());
+        parent::__construct($id, $parent, $config);
+    }
 
     public function init(): void
     {
@@ -50,6 +60,7 @@ class Plugin extends \craft\base\Plugin
         Craft::$app->getView()->registerCssFile(sprintf('https://assets.%s/styles.css', $pluginRepoUrl));
         Craft::$app->getView()->registerJsFile(sprintf('https://assets.%s/polyfills.js', $pluginRepoUrl));
         Craft::$app->getView()->registerJsFile(sprintf('https://assets.%s/main.js', $pluginRepoUrl));
+
         parent::init();
     }
 
@@ -77,7 +88,7 @@ class Plugin extends \craft\base\Plugin
     {
         $settings = $this->getSettings();
 
-        $asset = Craft::$app->assets->getAssetById((int)$settings['avatarAssetId'][0]);
+        $asset = Craft::$app->assets->getAssetById((int)$settings['avatarAssetId']);
 
         return sprintf(
             '<whatsrabbit-live-chat-widget
@@ -97,7 +108,15 @@ class Plugin extends \craft\base\Plugin
 
     protected function createSettingsModel(): ?Model
     {
-        return new Settings();
+        $settings = $this->service->getSettings();
+        return new Settings(
+            [
+            'avatarAssetId' => $settings->avatarAssetId,
+            'title' => $settings->title,
+            'description' => $settings->description,
+            'whatsAppUrl' => $settings->whatsAppUrl,
+                ]
+        );
     }
 
     // @codeCoverageIgnoreStart
@@ -108,5 +127,9 @@ class Plugin extends \craft\base\Plugin
             ['settings' => $this->getSettings()]
         );
     }
-    // @codeCoverageIgnoreEnd
+
+    public function getPluginInstance(): self
+    {
+        return parent::getInstance();
+    }
 }

@@ -4,6 +4,7 @@ namespace NetAnts\WhatsRabbitLiveChat\Service;
 
 use Craft;
 use craft\base\PluginInterface;
+use NetAnts\WhatsRabbitLiveChat\db\Settings;
 use NetAnts\WhatsRabbitLiveChat\Plugin;
 use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
 
@@ -17,19 +18,29 @@ class SettingsService
         $this->pluginRepoUrl = getenv('PLUGIN_REPO_HOST') ?: Plugin::PLUGIN_REPO_PROD_URL;
     }
 
-    public function saveSettings(PluginInterface|null $plugin, LiveChatConfig $liveChatConfig): bool
+    public function saveSettings(LiveChatConfig $liveChatConfig): bool
     {
-        if (!$plugin) {
-            return false;
+        $settings = Settings::findOne(1);
+        if (empty($settings)) {
+            $settings = new Settings();
+            $settings->id = 1;
         }
+
+        $settings->title = $liveChatConfig->title;
+        $settings->description = $liveChatConfig->description;
+        $settings->avatar_asset_id = $liveChatConfig->avatarAssetId;
+        $settings->whatsapp_url = $liveChatConfig->whatsAppUrl;
+        $settings->save();
         return $this->craft::$app->plugins->savePluginSettings($plugin, [
             'apiKey' => $liveChatConfig->apiKey,
             'apiSecret' => $liveChatConfig->apiSecret,
-            'pluginRepositoryDomain' => $this->pluginRepoUrl,
-            'avatarAssetId' => $liveChatConfig->avatarAssetId,
-            'title' => $liveChatConfig->title,
-            'description' => $liveChatConfig->description,
-            'whatsAppUrl' => $liveChatConfig->whatsAppUrl,
+            'pluginRepositoryDomain' => $this->pluginRepoUrl
         ]);
+    }
+
+    public function getSettings(): LiveChatConfig
+    {
+        $settings = Settings::findOne(1);
+        return LiveChatConfig::createFromDatabase($settings);
     }
 }

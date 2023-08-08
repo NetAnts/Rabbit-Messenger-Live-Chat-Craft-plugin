@@ -43,7 +43,6 @@ class SettingsController extends Controller
         }
 
         $saved = $this->settingsService->saveSettings(
-            Plugin::getInstance(),
             $liveChatConfig,
         );
 

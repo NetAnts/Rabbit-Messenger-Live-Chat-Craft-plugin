@@ -9,7 +9,7 @@ class Settings extends Model
     public string $apiKey = '';
     public string $apiSecret = '';
     public string $pluginRepositoryDomain = '';
-    public array $avatarAssetId = [];
+    public int $avatarAssetId = 0;
     public string $description = '';
     public string $title = '';
     public string $whatsAppUrl = '';
