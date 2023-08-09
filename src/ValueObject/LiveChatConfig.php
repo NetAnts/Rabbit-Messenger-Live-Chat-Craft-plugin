@@ -20,6 +20,7 @@ class LiveChatConfig
         public string $title,
         public string $description,
         public string $whatsAppUrl,
+        public bool $enabled,
         public string $loginUrl,
     ) {
     }
@@ -44,6 +45,7 @@ class LiveChatConfig
             $data['title'],
             $data['description'],
             $data['whatsAppUrl'],
+            (bool)$data['enabled'],
             '/actions/whatsrabbit-live-chat/login/get-token'
         );
     }
@@ -56,6 +58,7 @@ class LiveChatConfig
             $settings->title,
             $settings->description,
             $settings->whatsapp_url,
+            (bool)$settings->enabled,
             '/actions/whatsrabbit-live-chat/login/get-token'
 
         );

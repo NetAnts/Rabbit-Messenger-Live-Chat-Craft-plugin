@@ -20,6 +20,7 @@ class SettingsService
 
     public function saveSettings(LiveChatConfig $liveChatConfig): bool
     {
+
         $settings = Settings::findOne(1);
         if (empty($settings)) {
             $settings = new Settings();
@@ -30,17 +31,18 @@ class SettingsService
         $settings->description = $liveChatConfig->description;
         $settings->avatar_asset_id = $liveChatConfig->avatarAssetId;
         $settings->whatsapp_url = $liveChatConfig->whatsAppUrl;
-        $settings->save();
-        return $this->craft::$app->plugins->savePluginSettings($plugin, [
-            'apiKey' => $liveChatConfig->apiKey,
-            'apiSecret' => $liveChatConfig->apiSecret,
-            'pluginRepositoryDomain' => $this->pluginRepoUrl
-        ]);
+        $settings->enabled = $liveChatConfig->enabled;
+       return  $settings->save();
+
     }
 
-    public function getSettings(): LiveChatConfig
+    public function getSettings(): ?LiveChatConfig
     {
+//        return null;
         $settings = Settings::findOne(1);
+        if(!$settings){
+            return null;
+        }
         return LiveChatConfig::createFromDatabase($settings);
     }
 }

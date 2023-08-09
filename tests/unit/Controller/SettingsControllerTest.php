@@ -10,7 +10,7 @@ use craft\web\Request;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
-use NetAnts\WhatsRabbitLiveChat\Controller\SettingsController;
+use NetAnts\WhatsRabbitLiveChat\Controller\DisplaySettingsController;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
 use PHPUnit\Framework\TestCase;
 use yii\base\Module;
@@ -22,7 +22,7 @@ class SettingsControllerTest extends TestCase
 
     private SettingsService|MockInterface $settingsService;
     private Craft | MockInterface $craft;
-    private SettingsController $controller;
+    private DisplaySettingsController $controller;
 
     protected function setUp(): void
     {
@@ -31,7 +31,7 @@ class SettingsControllerTest extends TestCase
         $config = [];
         $this->craft = Mockery::mock(Craft::class);
         $this->settingsService = Mockery::mock(SettingsService::class);
-        $this->controller = new SettingsController($id, $module, $this->settingsService, $this->craft, $config);
+        $this->controller = new DisplaySettingsController($id, $module, $this->settingsService, $this->craft, $config);
     }
 
 

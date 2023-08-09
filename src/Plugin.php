@@ -8,10 +8,10 @@ use Craft;
 use craft\base\Model;
 use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterUrlRulesEvent;
-use craft\web\Application;
 use craft\web\twig\variables\Cp;
 use craft\web\UrlManager;
-use NetAnts\WhatsRabbitLiveChat\Model\Settings;
+use NetAnts\WhatsRabbitLiveChat\Model\ApiSettings;
+use NetAnts\WhatsRabbitLiveChat\Model\DisplaySettings;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
 use yii\base\Event;
 
@@ -51,12 +51,23 @@ class Plugin extends \craft\base\Plugin
             [$this, 'addRoute'],
         );
 
+        Event::on(
+            UrlManager::class,
+            UrlManager::EVENT_REGISTER_CP_URL_RULES,
+            function(RegisterUrlRulesEvent $event) {
+                $event->rules['whatsrabbit-live-chat/display-settings/edit'] = 'whatsrabbit-live-chat/display-settings/edit';
+            }
+        );
+
         /**
          * Register live chat hook and files
          */
-        Craft::$app->view->hook('whatsrabbit-live-chat', [$this, 'getLiveChatWidget']);
 
         $pluginRepoUrl = getenv('PLUGIN_REPO_HOST') ?: self::PLUGIN_REPO_PROD_URL;
+
+        if ($this->service->getSettings()?->enabled && !Craft::$app->request->isCpRequest) {
+            Craft::$app->getView()->registerHtml($this->getLiveChatWidget());
+        }
         Craft::$app->getView()->registerCssFile(sprintf('https://assets.%s/styles.css', $pluginRepoUrl));
         Craft::$app->getView()->registerJsFile(sprintf('https://assets.%s/polyfills.js', $pluginRepoUrl));
         Craft::$app->getView()->registerJsFile(sprintf('https://assets.%s/main.js', $pluginRepoUrl));
@@ -67,15 +78,10 @@ class Plugin extends \craft\base\Plugin
     public function addNavItem(RegisterCpNavItemsEvent $event): void
     {
         $event->navItems[] = [
-            'url' => 'whatsrabbit-live-chat',
+            'url' => 'whatsrabbit-live-chat/display-settings/edit',
             'label' => 'What\'sRabbit LiveChat',
-            'icon' => '@app/icons/envelope.svg',
-            'subnav' => [
-                [
-                    'url' => 'whatsrabbit-live-chat',
-                    'label' => 'Settings',
-                ]
-            ]
+            'icon' => '@NetAnts/WhatsRabbitLiveChat/icon.svg'
+
         ];
     }
 
@@ -84,11 +90,12 @@ class Plugin extends \craft\base\Plugin
         $event->rules['whatsrabbit-live-chat'] = 'login/getToken';
     }
 
-    public function getLiveChatWidget(array &$context): string
-    {
-        $settings = $this->getSettings();
 
-        $asset = Craft::$app->assets->getAssetById((int)$settings['avatarAssetId']);
+    public function getLiveChatWidget(): string
+    {
+        $settings = $this->service->getSettings();
+
+        $asset = Craft::$app->assets->getAssetById((int)$settings?->avatarAssetId);
 
         return sprintf(
             '<whatsrabbit-live-chat-widget
@@ -100,23 +107,15 @@ class Plugin extends \craft\base\Plugin
                     ></whatsrabbit-live-chat-widget>',
             $asset?->url,
             '/actions/whatsrabbit-live-chat/login/get-token',
-            $settings['whatsAppUrl'],
-            $settings['title'],
-            $settings['description']
+            $settings?->whatsAppUrl,
+            $settings?->title,
+            $settings?->description
         );
     }
 
     protected function createSettingsModel(): ?Model
     {
-        $settings = $this->service->getSettings();
-        return new Settings(
-            [
-            'avatarAssetId' => $settings->avatarAssetId,
-            'title' => $settings->title,
-            'description' => $settings->description,
-            'whatsAppUrl' => $settings->whatsAppUrl,
-                ]
-        );
+        return new ApiSettings();
     }
 
     // @codeCoverageIgnoreStart

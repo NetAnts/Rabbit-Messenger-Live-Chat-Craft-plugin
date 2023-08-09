@@ -6,7 +6,7 @@ use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterUrlRulesEvent;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use NetAnts\WhatsRabbitLiveChat\Model\Settings;
+use NetAnts\WhatsRabbitLiveChat\Model\DisplaySettings;
 use NetAnts\WhatsRabbitLiveChat\Plugin;
 use PHPUnit\Framework\TestCase;
 
@@ -80,7 +80,7 @@ class PluginTest extends TestCase
     public function testCreateSettingsModel(): void
     {
         $settings = $this->plugin->getSettings();
-        $this->assertInstanceOf(Settings::class, $settings);
+        $this->assertInstanceOf(DisplaySettings::class, $settings);
     }
 
     public function testGetLiveChatWidget(): void
