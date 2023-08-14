@@ -2,13 +2,15 @@
 
 namespace NetAnts\WhatsRabbitLiveChatTest;
 
+use Codeception\PHPUnit\TestCase;
 use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterUrlRulesEvent;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use NetAnts\WhatsRabbitLiveChat\Model\DisplaySettings;
 use NetAnts\WhatsRabbitLiveChat\Plugin;
-use PHPUnit\Framework\TestCase;
+use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
+//use PHPUnit\Framework\TestCase;
 
 class PluginTest extends TestCase
 {

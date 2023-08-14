@@ -29,7 +29,10 @@ modules:
       configFile: "tests/_craft/config/test.php"
       entryUrl: "http://test.craftcms.test/index.php"
       projectConfig: {}
-      migrations: []
+      migrations:
+        whatsrabbit-live-chat:
+          class: '\NetAnts\WhatsRabbitLiveChat\migrations\Install'
+          params: []
       plugins:
         whatsrabbit-live-chat:
           class: '\NetAnts\WhatsRabbitLiveChat\Plugin'
@@ -37,4 +40,4 @@ modules:
       cleanup: true
       transaction: true
       fullMock: false
-      dbSetup: { clean: true, setupCraft: true }
+      dbSetup: { clean: true, setupCraft: true, applyMigrations: true }

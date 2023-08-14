@@ -20,17 +20,19 @@ class Plugin extends \craft\base\Plugin
     public bool $hasCpSettings = true;
 
     public const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
-    private SettingsService $service;
+    private ?SettingsService $service = null;
 
 
     public function __construct($id, $parent = null, array $config = [])
     {
-        $this->service = new SettingsService(new Craft());
         parent::__construct($id, $parent, $config);
     }
 
     public function init(): void
     {
+        if (!$this->service) {
+            $this->service = new SettingsService(new Craft());
+        }
         $this->controllerNamespace = 'NetAnts\\WhatsRabbitLiveChat\\Controller';
 
         /**
