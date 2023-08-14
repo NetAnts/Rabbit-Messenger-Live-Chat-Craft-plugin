@@ -42,7 +42,6 @@ class LiveChatConfig
         }
 
         return new self(
-
             (int)$data['avatarAssetId'][0],
             $data['title'],
             $data['description'],
@@ -61,7 +60,6 @@ class LiveChatConfig
             $settings->whatsapp_url,
             (bool)$settings->enabled,
             '/actions/whatsrabbit-live-chat/login/get-token'
-
         );
     }
 }

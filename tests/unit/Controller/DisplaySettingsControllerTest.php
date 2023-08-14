@@ -11,6 +11,7 @@ use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use NetAnts\WhatsRabbitLiveChat\Controller\DisplaySettingsController;
+use NetAnts\WhatsRabbitLiveChat\Model\DisplaySettings;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
 use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
 use PHPUnit\Framework\TestCase;
@@ -65,6 +66,27 @@ class DisplaySettingsControllerTest extends TestCase
         $this->assertTrue($response->getIsRedirection());
     }
 
+    public function testActionSaveLiveChatConfigInvalid(): void
+    {
+        $request = Mockery::mock(Request::class);
+        $request->expects('getBodyParams')->andReturn([
+            'title' => 'Some title',
+            'description' => 'Some description',
+            'avatarAssetId' => ['some-avatar-id'],
+            'whatsAppUrl' => 'https://wa.me',
+        ]);
+        $request->expects('getValidatedBodyParam')->andReturn(null);
+        $request->expects('getPathInfo')->andReturn('/api');
+        $this->controller->request = $request;
+        $response = $this->controller->actionSave();
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(302, $response->getStatusCode());
+        $this->assertSame(
+            'Something went wrong while creating configCould not create LiveChatConfig because the following data is missing "enabled"',
+            $this->craft::$app->session->getError()
+        );
+    }
+
     public function testActionSaveFails(): void
     {
         $request = Mockery::mock(Request::class);
@@ -110,5 +132,26 @@ class DisplaySettingsControllerTest extends TestCase
             'Something went wrong!',
             $this->craft::$app->session->getError()
         );
+    }
+
+    public function testActionEdit(): void
+    {
+        $response = $this->controller->actionEdit();
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(200, $response->getStatusCode());
+    }
+
+    public function testActionEditWithSettingsFromRoute(): void
+    {
+        $displaySettings = new DisplaySettings([
+            'title' => 'Some title',
+            'description' => 'Some description',
+            'avatarAssetId' => 0,
+            'whatsAppUrl' => 'https://wa.me',
+            'enabled' => false,
+            ]);
+        $response = $this->controller->actionEdit($displaySettings);
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertSame(200, $response->getStatusCode());
     }
 }

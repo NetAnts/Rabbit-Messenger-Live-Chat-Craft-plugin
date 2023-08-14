@@ -16,6 +16,7 @@ class DisplaySettings extends Model
     {
         return [
             [['title','whatsAppUrl', 'description', 'avatarAssetId'], 'required'],
+            [['enabled'], 'boolean'],
         ];
     }
 }

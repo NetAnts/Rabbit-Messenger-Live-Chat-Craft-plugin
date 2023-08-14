@@ -34,9 +34,9 @@ class DisplaySettingsController extends Controller
 
     public function actionEdit(?DisplaySettings $displaySettings = null)
     {
-       if(!$displaySettings){
-           $displaySettings =  $this->displaySettings;
-       }
+        if (!$displaySettings) {
+            $displaySettings =  $this->displaySettings;
+        }
         return $this->renderTemplate(
             'whatsrabbit-live-chat/index',
             ['displaySettings' => $displaySettings],
@@ -60,7 +60,7 @@ class DisplaySettingsController extends Controller
             'title' => $data['title'] ?? null,
             'description' => $data['description'] ?? null,
             'whatsAppUrl' => $data['whatsAppUrl'] ?? null,
-            'enabled' => (bool)$data['enabled'] ?? null,
+            'enabled' => (bool)($data['enabled'] ?? null),
         ]);
 
 

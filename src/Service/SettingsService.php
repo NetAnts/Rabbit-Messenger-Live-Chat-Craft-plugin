@@ -32,15 +32,14 @@ class SettingsService
         $settings->avatar_asset_id = $liveChatConfig->avatarAssetId;
         $settings->whatsapp_url = $liveChatConfig->whatsAppUrl;
         $settings->enabled = $liveChatConfig->enabled;
-       return  $settings->save();
-
+        return  $settings->save();
     }
 
     public function getSettings(): ?LiveChatConfig
     {
 //        return null;
         $settings = Settings::findOne(1);
-        if(!$settings){
+        if (!$settings) {
             return null;
         }
         return LiveChatConfig::createFromDatabase($settings);

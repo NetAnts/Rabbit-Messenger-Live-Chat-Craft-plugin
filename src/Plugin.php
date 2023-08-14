@@ -20,19 +20,16 @@ class Plugin extends \craft\base\Plugin
     public bool $hasCpSettings = true;
 
     public const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
-    private ?SettingsService $service = null;
-
+    private ?SettingsService $service;
 
     public function __construct($id, $parent = null, array $config = [])
     {
+        $this->service = new SettingsService(new Craft());
         parent::__construct($id, $parent, $config);
     }
 
     public function init(): void
     {
-        if (!$this->service) {
-            $this->service = new SettingsService(new Craft());
-        }
         $this->controllerNamespace = 'NetAnts\\WhatsRabbitLiveChat\\Controller';
 
         /**
@@ -56,9 +53,7 @@ class Plugin extends \craft\base\Plugin
         Event::on(
             UrlManager::class,
             UrlManager::EVENT_REGISTER_CP_URL_RULES,
-            function(RegisterUrlRulesEvent $event) {
-                $event->rules['whatsrabbit-live-chat/display-settings/edit'] = 'whatsrabbit-live-chat/display-settings/edit';
-            }
+            [$this, 'addCpRoute'],
         );
 
         /**
@@ -90,6 +85,11 @@ class Plugin extends \craft\base\Plugin
     public function addRoute(RegisterUrlRulesEvent $event): void
     {
         $event->rules['whatsrabbit-live-chat'] = 'login/getToken';
+    }
+
+    public function addCpRoute(RegisterUrlRulesEvent $event): void
+    {
+        $event->rules['whatsrabbit-live-chat/display-settings/edit'] = 'whatsrabbit-live-chat/display-settings/edit';
     }
 
 
@@ -133,4 +133,5 @@ class Plugin extends \craft\base\Plugin
     {
         return parent::getInstance();
     }
+    // @codeCoverageIgnoreEnd
 }

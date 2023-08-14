@@ -1,4 +1,5 @@
 <?php
+
 namespace NetAnts\WhatsRabbitLiveChatTest\ValueObject;
 
 use NetAnts\WhatsRabbitLiveChat\db\Settings;
