@@ -21,7 +21,6 @@ class DisplaySettingsController extends Controller
 {
     private DisplaySettings $displaySettings;
 
-
     public function __construct(
         string $id,
         Module $module,
@@ -52,16 +51,16 @@ class DisplaySettingsController extends Controller
     public function actionSave(): ?Response
     {
         $data = $this->request->getBodyParams();
-        $avatarAssetId = $data['avatarAssetId'];
+        $avatarAssetId = $data['avatarAssetId'] ?? null;
         if (is_array($avatarAssetId)) {
             $avatarAssetId = (int) $avatarAssetId[0];
         }
         $this->displaySettings->setAttributes([
             'avatarAssetId' => $avatarAssetId,
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'whatsAppUrl' => $data['whatsAppUrl'],
-            'enabled' => (bool)$data['enabled'],
+            'title' => $data['title'] ?? null,
+            'description' => $data['description'] ?? null,
+            'whatsAppUrl' => $data['whatsAppUrl'] ?? null,
+            'enabled' => (bool)$data['enabled'] ?? null,
         ]);
 
 

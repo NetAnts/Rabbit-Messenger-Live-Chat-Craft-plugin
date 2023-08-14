@@ -12,11 +12,12 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use NetAnts\WhatsRabbitLiveChat\Controller\DisplaySettingsController;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
+use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
 use PHPUnit\Framework\TestCase;
 use yii\base\Module;
 use yii\web\Response;
 
-class SettingsControllerTest extends TestCase
+class DisplaySettingsControllerTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
@@ -26,11 +27,18 @@ class SettingsControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        $id = 'settingsController';
+        $id = 'displaySettingsController';
         $module = Mockery::mock(Module::class);
         $config = [];
         $this->craft = Mockery::mock(Craft::class);
         $this->settingsService = Mockery::mock(SettingsService::class);
+        $this->settingsService->expects('getSettings')->andReturn(LiveChatConfig::createFromRequest([
+            'avatarAssetId' => 'some-asset-id',
+            'description' => 'some-description',
+            'title' => 'some-title',
+            'whatsAppUrl' => 'some-url',
+            'enabled' => true,
+        ]));
         $this->controller = new DisplaySettingsController($id, $module, $this->settingsService, $this->craft, $config);
     }
 
@@ -45,7 +53,7 @@ class SettingsControllerTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
-            'loginUrl' => '',
+            'enabled' => true,
         ]);
         $request->expects('getValidatedBodyParam')->andReturn(null);
         $request->expects('getPathInfo')->andReturn('/api');
@@ -67,7 +75,7 @@ class SettingsControllerTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
-            'loginUrl' => '',
+            'enabled' => true,
         ]);
         $request->expects('getValidatedBodyParam')->andReturn(null);
         $request->expects('getPathInfo')->andReturn('/api');
@@ -91,16 +99,15 @@ class SettingsControllerTest extends TestCase
             'title' => 'Some title',
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
-            'loginUrl' => '',
+            'enabled' => true,
         ]);
         $request->expects('getValidatedBodyParam')->andReturn(null);
-        $request->expects('getPathInfo')->andReturn('/api');
+        $request->expects('getAcceptsJson')->andReturnFalse();
         $this->controller->request = $request;
         $response = $this->controller->actionSave();
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertSame(302, $response->getStatusCode());
+        $this->assertNull($response);
         $this->assertSame(
-            'Something went wrong while creating configCould not create LiveChatConfig because the following data is missing "whatsAppUrl"',
+            'Something went wrong!',
             $this->craft::$app->session->getError()
         );
     }
