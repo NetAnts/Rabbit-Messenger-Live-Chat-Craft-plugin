@@ -36,6 +36,7 @@ class SettingsServiceTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'enabled' => true,
         ]);
         $settingsModel = Mockery::mock(\craft\base\Model::class);
         $settingsModel->expects('setAttributes')->with([
@@ -68,6 +69,7 @@ class SettingsServiceTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'enabled' => true,
         ]);
 
         $response = $this->service->saveSettings(null, $liveChatConfig);
