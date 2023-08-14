@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace NetAnts\WhatsRabbitLiveChat\ValueObject;
 
+use NetAnts\WhatsRabbitLiveChat\db\Settings;
 use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
 
 class LiveChatConfig
@@ -13,6 +14,7 @@ class LiveChatConfig
         'title',
         'description',
         'whatsAppUrl',
+        'enabled'
     ];
 
     private function __construct(
@@ -50,10 +52,9 @@ class LiveChatConfig
         );
     }
 
-    public static function createFromDatabase($settings)
+    public static function createFromDatabase(Settings $settings)
     {
         return new self(
-
             $settings->avatar_asset_id,
             $settings->title,
             $settings->description,
