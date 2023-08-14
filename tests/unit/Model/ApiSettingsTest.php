@@ -2,7 +2,6 @@
 
 namespace NetAnts\WhatsRabbitLiveChatTest\Model;
 
-
 use Codeception\PHPUnit\TestCase;
 use NetAnts\WhatsRabbitLiveChat\Model\ApiSettings;
 
