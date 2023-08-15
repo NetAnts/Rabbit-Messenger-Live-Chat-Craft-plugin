@@ -1,6 +1,10 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}-cli
 
+# Change mirror
+RUN sed -i 's/deb.debian.org/ftp.nl.debian.org/g' /etc/apt/sources.list
+RUN sed -i 's/ftp.debian.org/ftp.nl.debian.org/g' /etc/apt/sources.list
+
 # Install packages
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yq \
         zip \
