@@ -28,7 +28,6 @@ class SettingsServiceTest extends TestCase
 
     public function testSaveSettings(): void
     {
-        $plugin = Mockery::mock(Plugin::class);
         $liveChatConfig = LiveChatConfig::createFromRequest([
             'apiKey' => 'some-api-key',
             'apiSecret' => 'some-api-secret',
@@ -36,30 +35,13 @@ class SettingsServiceTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'enabled' => true,
         ]);
-        $settingsModel = Mockery::mock(\craft\base\Model::class);
-        $settingsModel->expects('setAttributes')->with([
-            'apiKey' => $liveChatConfig->apiKey,
-            'apiSecret' => $liveChatConfig->apiSecret,
-            'pluginRepositoryDomain' => 'plugins.whatsrabbit.com',
-            'avatarAssetId' => $liveChatConfig->avatarAssetId,
-            'title' => $liveChatConfig->title,
-            'description' => $liveChatConfig->description,
-            'whatsAppUrl' => $liveChatConfig->whatsAppUrl,
-        ], false);
-        $settingsModel->expects('validate')->andReturnTrue();
-        $settingsModel->expects('toArray')->andReturn([]);
-        $plugin->expects('getSettings')->andReturn($settingsModel)->times(3);
-        $plugin->expects('beforeSaveSettings')->andReturnTrue();
-        $plugin->expects('afterSaveSettings');
-        $plugin->expects('has')->andReturnTrue()->twice();
-        $plugin->expects('get')->andReturnNull()->twice();
-
-        $response = $this->service->saveSettings($plugin, $liveChatConfig);
+        $response = $this->service->saveSettings($liveChatConfig);
         $this->assertTrue($response);
     }
 
-    public function testSaveSettingsWithoutPluginReturnsFalse(): void
+    public function testGetSettings(): void
     {
         $liveChatConfig = LiveChatConfig::createFromRequest([
             'apiKey' => 'some-api-key',
@@ -68,9 +50,10 @@ class SettingsServiceTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'enabled' => true,
         ]);
-
-        $response = $this->service->saveSettings(null, $liveChatConfig);
-        $this->assertFalse($response);
+        $this->service->saveSettings($liveChatConfig);
+        $settings = $this->service->getSettings();
+        $this->assertInstanceOf(LiveChatConfig::class, $settings);
     }
 }

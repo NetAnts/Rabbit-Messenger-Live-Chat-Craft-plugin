@@ -4,13 +4,16 @@ namespace NetAnts\WhatsRabbitLiveChat\Model;
 
 use craft\base\Model;
 
-class Settings extends Model
+class ApiSettings extends Model
 {
     public string $apiKey = '';
     public string $apiSecret = '';
     public string $pluginRepositoryDomain = '';
-    public array $avatarAssetId = [];
-    public string $description = '';
-    public string $title = '';
-    public string $whatsAppUrl = '';
+
+    public function rules(): array
+    {
+        return [
+            [['apiKey', 'apiSecret'], 'required'],
+        ];
+    }
 }

@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace NetAnts\WhatsRabbitLiveChat\ValueObject;
 
+use NetAnts\WhatsRabbitLiveChat\db\Settings;
 use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
 
 class LiveChatConfig
 {
     private const REQUIRED_KEYS = [
-        'apiKey',
-        'apiSecret',
         'avatarAssetId',
         'title',
         'description',
         'whatsAppUrl',
+        'enabled'
     ];
 
     private function __construct(
-        public string $apiKey,
-        public string $apiSecret,
-        public array $avatarAssetId,
+        public int $avatarAssetId,
         public string $title,
         public string $description,
         public string $whatsAppUrl,
+        public bool $enabled,
         public string $loginUrl,
     ) {
     }
@@ -43,12 +42,23 @@ class LiveChatConfig
         }
 
         return new self(
-            $data['apiKey'],
-            $data['apiSecret'],
-            $data['avatarAssetId'],
+            (int)$data['avatarAssetId'][0],
             $data['title'],
             $data['description'],
             $data['whatsAppUrl'],
+            (bool)$data['enabled'],
+            '/actions/whatsrabbit-live-chat/login/get-token'
+        );
+    }
+
+    public static function createFromDatabase(Settings $settings)
+    {
+        return new self(
+            $settings->avatar_asset_id,
+            $settings->title,
+            $settings->description,
+            $settings->whatsapp_url,
+            (bool)$settings->enabled,
             '/actions/whatsrabbit-live-chat/login/get-token'
         );
     }

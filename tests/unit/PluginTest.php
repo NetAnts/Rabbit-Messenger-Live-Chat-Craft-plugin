@@ -2,13 +2,19 @@
 
 namespace NetAnts\WhatsRabbitLiveChatTest;
 
+use Codeception\PHPUnit\TestCase;
+use Craft;
 use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterUrlRulesEvent;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use NetAnts\WhatsRabbitLiveChat\Model\Settings;
+use NetAnts\WhatsRabbitLiveChat\Model\ApiSettings;
+use NetAnts\WhatsRabbitLiveChat\Model\DisplaySettings;
 use NetAnts\WhatsRabbitLiveChat\Plugin;
-use PHPUnit\Framework\TestCase;
+use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
+use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
+
+//use PHPUnit\Framework\TestCase;
 
 class PluginTest extends TestCase
 {
@@ -19,7 +25,7 @@ class PluginTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->plugin = Plugin::getInstance();
+        $this->plugin = new Plugin('whatsrabbit-live-chat');
     }
 
     public function testCanCreate(): void
@@ -39,6 +45,29 @@ class PluginTest extends TestCase
         $this->assertSame($controllerNamespace, $this->plugin->controllerNamespace);
     }
 
+    public function testInitAddsHtml(): void
+    {
+        $settingsService = Mockery::mock(SettingsService::class);
+        $settingsService->expects('getSettings')->twice()->andReturn(LiveChatConfig::createFromRequest([
+            'apiKey' => 'some-api-key',
+            'apiSecret' => 'some-api-secret',
+            'title' => 'Some title',
+            'description' => 'Some description',
+            'avatarAssetId' => ['some-avatar-id'],
+            'whatsAppUrl' => 'https://wa.me',
+            'enabled' => true,
+        ]));
+        $settingsServiceProperty = new \ReflectionProperty(Plugin::class, 'service');
+        $settingsServiceProperty->setAccessible(true);
+        $settingsServiceProperty->setValue($this->plugin, $settingsService);
+
+        // When
+        $this->plugin->init();
+
+        // Then
+        $this->assertStringContainsString('<whatsrabbit-live-chat-widget', Craft::$app->getView()->getBodyHtml());
+    }
+
     public function testAddNavItem(): void
     {
         $event = Mockery::mock(RegisterCpNavItemsEvent::class);
@@ -48,15 +77,9 @@ class PluginTest extends TestCase
 
         $this->assertCount(1, $event->navItems);
         $expectedNavItem = [
-            'url' => 'whatsrabbit-live-chat',
+            'url' => 'whatsrabbit-live-chat/display-settings/edit',
             'label' => 'What\'sRabbit LiveChat',
-            'icon' => '@app/icons/envelope.svg',
-            'subnav' => [
-                [
-                    'url' => 'whatsrabbit-live-chat',
-                    'label' => 'Settings',
-                ]
-            ]
+            'icon' => '@NetAnts/WhatsRabbitLiveChat/icon.svg',
         ];
 
         $this->assertSame($expectedNavItem, $event->navItems[0]);
@@ -76,11 +99,25 @@ class PluginTest extends TestCase
         $this->assertSame($expectedRules, $event->rules);
     }
 
+    public function testAddCpRoute(): void
+    {
+        $event = Mockery::mock(RegisterUrlRulesEvent::class);
+        $event->rules = [];
+
+        $this->plugin->addCpRoute($event);
+
+        $this->assertCount(1, $event->rules);
+        $expectedRules = [
+            'whatsrabbit-live-chat/display-settings/edit' => 'whatsrabbit-live-chat/display-settings/edit'
+        ];
+        $this->assertSame($expectedRules, $event->rules);
+    }
+
 
     public function testCreateSettingsModel(): void
     {
         $settings = $this->plugin->getSettings();
-        $this->assertInstanceOf(Settings::class, $settings);
+        $this->assertInstanceOf(ApiSettings::class, $settings);
     }
 
     public function testGetLiveChatWidget(): void
