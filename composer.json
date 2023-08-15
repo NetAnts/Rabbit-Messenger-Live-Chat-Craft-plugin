@@ -2,6 +2,7 @@
     "name": "netants/whatsrabbit-live-chat",
     "description": "This plugin provides a What'sRabbit LiveChat widget for your CraftCMS website",
     "license": "MIT",
+    "version": "0.0.2",
     "type": "craft-plugin",
     "authors": [
         {
@@ -48,12 +49,6 @@
     },
     "require": {
         "craftcms/cms": "^4.4",
-        "whatsrabbit/live-chat-plugin-core": "^0.0.2"
-    },
-    "repositories": {
-        "netants": {
-            "type": "composer",
-            "url": "https://gitlab.netants.nl/api/v4/group/116/-/packages/composer/"
-        }
+        "whatsrabbit/live-chat-plugin-core": "^1.0"
     }
 }
