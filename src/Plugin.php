@@ -20,6 +20,7 @@ class Plugin extends \craft\base\Plugin
     public bool $hasCpSettings = true;
 
     public const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
+    public const LIVECHAT_ASSETS_DOMAIN = 'cdn.plugins.whatsrabbit.com';
     private ?SettingsService $service;
 
     public function __construct($id, $parent = null, array $config = [])
@@ -60,14 +61,14 @@ class Plugin extends \craft\base\Plugin
          * Register live chat hook and files
          */
 
-        $pluginRepoUrl = getenv('PLUGIN_REPO_HOST') ?: self::PLUGIN_REPO_PROD_URL;
+        $pluginAssetsUrl = getenv('LIVECHAT_ASSETS_DOMAIN') ?: self::LIVECHAT_ASSETS_DOMAIN;
 
         if ($this->service->getSettings()?->enabled && !Craft::$app->request->isCpRequest) {
             Craft::$app->getView()->registerHtml($this->getLiveChatWidget());
         }
-        Craft::$app->getView()->registerCssFile(sprintf('https://assets.%s/styles.css', $pluginRepoUrl));
-        Craft::$app->getView()->registerJsFile(sprintf('https://assets.%s/polyfills.js', $pluginRepoUrl));
-        Craft::$app->getView()->registerJsFile(sprintf('https://assets.%s/main.js', $pluginRepoUrl));
+        Craft::$app->getView()->registerCssFile(sprintf('https://%s/styles.css', $pluginAssetsUrl));
+        Craft::$app->getView()->registerJsFile(sprintf('https://%s/polyfills.js', $pluginAssetsUrl));
+        Craft::$app->getView()->registerJsFile(sprintf('https://%s/main.js', $pluginAssetsUrl));
 
         parent::init();
     }

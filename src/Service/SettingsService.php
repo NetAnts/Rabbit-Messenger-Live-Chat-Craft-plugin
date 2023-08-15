@@ -20,7 +20,6 @@ class SettingsService
 
     public function saveSettings(LiveChatConfig $liveChatConfig): bool
     {
-
         $settings = Settings::findOne(1);
         if (empty($settings)) {
             $settings = new Settings();
@@ -37,7 +36,6 @@ class SettingsService
 
     public function getSettings(): ?LiveChatConfig
     {
-//        return null;
         $settings = Settings::findOne(1);
         if (!$settings) {
             return null;
