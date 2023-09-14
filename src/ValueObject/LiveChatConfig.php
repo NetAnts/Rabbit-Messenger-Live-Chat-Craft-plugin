@@ -14,7 +14,6 @@ class LiveChatConfig
         'title',
         'description',
         'whatsAppUrl',
-        'enabled'
     ];
 
     private function __construct(
