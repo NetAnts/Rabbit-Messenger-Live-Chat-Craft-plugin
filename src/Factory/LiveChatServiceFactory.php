@@ -18,8 +18,8 @@ class LiveChatServiceFactory
         $client = new Client(['http_errors' => false]);
 
         return new LiveChatService(
-            $settings['apiKey'],
-            $settings['apiSecret'],
+            App::parseEnv($settings['apiKey']),
+            App::parseEnv($settings['apiSecret']),
             $client,
             $settingsService->pluginRepoUrl
         );
