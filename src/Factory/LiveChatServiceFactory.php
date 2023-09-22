@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace NetAnts\WhatsRabbitLiveChat\Factory;
 
+use craft\helpers\App;
 use GuzzleHttp\Client;
 use NetAnts\WhatsRabbitLiveChat\Plugin;
 use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
