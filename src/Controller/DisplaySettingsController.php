@@ -64,7 +64,7 @@ class DisplaySettingsController extends Controller
         if (!$this->displaySettings->validate()) {
             return $this->asModelFailure(
                 $this->displaySettings,
-                Craft::t('whatsrabbit-live-chat', 'Something went wrong!'), // Flash message
+                'Something went wrong!', // Flash message
                 'displaySettings'// Route param key
             );
         }
