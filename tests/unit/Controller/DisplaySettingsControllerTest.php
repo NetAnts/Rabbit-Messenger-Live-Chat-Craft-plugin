@@ -135,7 +135,6 @@ class DisplaySettingsControllerTest extends TestCase
         $response = $this->controller->actionSave();
         $this->assertInstanceOf(Response::class, $response);
         $this->assertSame(400, $response->getStatusCode());
-
     }
 
     public function testActionSaveButLiveChatConfigCannotBeCreated(): void
@@ -161,8 +160,8 @@ class DisplaySettingsControllerTest extends TestCase
         $request->expects('getPathInfo')->andReturn('/api');
         $this->controller->request = $request;
         $this->controller->actionSave();
-        $this->assertSame(
-            'Something went wrong while creating config: NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig::__construct(): Argument #4 ($whatsAppUrl) must be of type string, bool given, called in /var/www/html/src/ValueObject/LiveChatConfig.php on line 50',
+        $this->assertStringStartsWith(
+            'Something went wrong while creating config: NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig::__construct(): Argument #4 ($whatsAppUrl) must be of type string, bool given, called in',
             $this->craft::$app->session->getError()
         );
     }
