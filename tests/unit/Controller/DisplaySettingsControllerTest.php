@@ -135,7 +135,6 @@ class DisplaySettingsControllerTest extends TestCase
         $response = $this->controller->actionSave();
         $this->assertInstanceOf(Response::class, $response);
         $this->assertSame(400, $response->getStatusCode());
-
     }
 
     public function testActionSaveButLiveChatConfigCannotBeCreated(): void

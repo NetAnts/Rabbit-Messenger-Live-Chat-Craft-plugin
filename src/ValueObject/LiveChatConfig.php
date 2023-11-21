@@ -61,7 +61,6 @@ class LiveChatConfig
             $data['bottom'],
             $data['top'],
             $data['margin'],
-
         );
     }
 
@@ -81,7 +80,6 @@ class LiveChatConfig
             $settings->bottom,
             $settings->top,
             $settings->margin,
-
         );
     }
 }
