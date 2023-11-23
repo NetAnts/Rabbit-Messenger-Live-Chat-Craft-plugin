@@ -142,7 +142,8 @@ class PluginTest extends TestCase
                                     whatsapp-url=""
                                     welcome-title=""
                                     welcome-description=""
-                                    display-options="{&quot;position&quot;:null,&quot;z-index&quot;:null,&quot;left&quot;:null,&quot;right&quot;:null,&quot;bottom&quot;:null,&quot;top&quot;:null,&quot;margin&quot;:null}"
+                                    display-options="{&quot;position&quot;:null,&quot;z-index&quot;:null,&quot;left&quot;:null,' .
+                                    '&quot;right&quot;:null,&quot;bottom&quot;:null,&quot;top&quot;:null,&quot;margin&quot;:null}"
                                 ></whatsrabbit-live-chat-widget>';
         $this->assertSame(preg_replace("(\s+)", "\s", $expectedHtml), preg_replace("(\s+)", "\s", $response));
     }
