@@ -161,7 +161,8 @@ class DisplaySettingsControllerTest extends TestCase
         $this->controller->request = $request;
         $this->controller->actionSave();
         $this->assertStringStartsWith(
-            'Something went wrong while creating config: NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig::__construct(): Argument #4 ($whatsAppUrl) must be of type string, bool given, called in',
+            'Something went wrong while creating config: NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig::__construct(): ' .
+            'Argument #4 ($whatsAppUrl) must be of type string, bool given, called in',
             $this->craft::$app->session->getError()
         );
     }

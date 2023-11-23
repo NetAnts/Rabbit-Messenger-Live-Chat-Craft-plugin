@@ -1,25 +1,25 @@
 {% extends '_layouts/cp' %}
 {% import "_includes/forms" as forms %}
-{% set title = "What'sRabbit LiveChat"|t('app') %}
+{% set title = "What'sRabbit Live-chat" %}
 {% set fullPageForm = true %}
 {% set foundAsset = displaySettings.avatarAssetId ? craft.assets().id(displaySettings.avatarAssetId) : null %}
 {% set crumbs  = [
     {
-        label: 'What\'sRabbit LiveChat'|t('whatsrabbit-live-chat'),
+        label: 'What\'sRabbit Live-chat',
         url: url('whatsrabbit-live-chat/display-settings/edit'),
     },
     {
-        label: 'Settings'|t('whatsrabbit-live-chat'),
+        label: 'Settings',
         url: url('whatsrabbit-live-chat/display-settings/edit'),
     },
 ]%}
 {% set tabs = {
     apiSettings: {
-        label: 'API settings'|t('plugin-handle'),
+        label: 'API settings',
         url: '#api-settings',
     },
     displayOptions: {
-        label: 'Display options'|t('plugin-handle'),
+        label: 'Display options',
         url: '#display-options',
     },
 } %}
@@ -47,7 +47,7 @@
        }) }}
 
        {{ forms.textField({
-           label: 'Title'|t('app'),
+           label: 'Title',
            id: 'title',
            name: 'title',
            value: displaySettings.title,
@@ -57,7 +57,7 @@
        }) }}
 
        {{ forms.textField({
-           label: 'Description'|t('app'),
+           label: 'Description',
            id: 'description',
            name: 'description',
            value: displaySettings.description,
@@ -67,7 +67,7 @@
        }) }}
 
        {{ forms.textField({
-           label: 'WhatsApp URL test'|t('app'),
+           label: 'WhatsApp URL test',
            id: 'whats-app-url',
            name: 'whatsAppUrl',
            value: displaySettings.whatsAppUrl,
@@ -77,23 +77,31 @@
        }) }}
 
        {{ forms.lightswitch({
-           label: 'Show livechat widget'|t('app'),
+           label: 'Show Live-chat widget',
            id: 'enabled',
            name: 'enabled',
            on: displaySettings.enabled,
        }) }}
    </div>
     <div id="display-options" class="hidden">
+        <p>
+            Configure the display options of the Live-chat plugin with the CSS properties below.
+            <br>
+            With these properties you can ensure that the Live-chat plugin is displayed correctly on your website.
+            <br>
+            If you don't have experience with CSS properties, ask your website developer or Rabbit Support which values you can enter for the best result.
+        </p>
         {{ forms.textField({
-            label: 'Position'|t('app'),
+            label: 'Position',
             id: 'position',
             name: 'position',
             value: displaySettings.position,
             size: 50,
             errors: displaySettings.getErrors('position'),
+            instructions: 'f.e static/relative/fixed/absolute/sticky'
         }) }}
         {{ forms.textField({
-            label: 'Z'|t('app'),
+            label: 'z-index',
             id: 'z-index',
             name: 'zIndex',
             value: displaySettings.zIndex,
@@ -101,44 +109,50 @@
             errors: displaySettings.getErrors('zIndex'),
         }) }}
         {{ forms.textField({
-            label: 'Left'|t('app'),
+            label: 'Left',
             id: 'left',
             name: 'left',
             value: displaySettings.left,
             size: 50,
             errors: displaySettings.getErrors('left'),
+            instructions: 'f.e inherit/10px/1rem/1em/10%'
+
         }) }}
         {{ forms.textField({
-            label: 'Right'|t('app'),
+            label: 'Right',
             id: 'right',
             name: 'right',
             value: displaySettings.right,
             size: 50,
             errors: displaySettings.getErrors('right'),
+            instructions: 'f.e inherit/10px/1rem/1em/10%'
         }) }}
         {{ forms.textField({
-            label: 'Bottom'|t('app'),
+            label: 'Bottom',
             id: 'bottom',
             name: 'bottom',
             value: displaySettings.bottom,
             size: 50,
             errors: displaySettings.getErrors('bottom'),
+            instructions: 'f.e inherit/10px/1rem/1em/10%'
         }) }}
         {{ forms.textField({
-            label: 'Top'|t('app'),
+            label: 'Top',
             id: 'top',
             name: 'top',
             value: displaySettings.top,
             size: 50,
             errors: displaySettings.getErrors('top'),
+            instructions: 'f.e inherit/10px/1rem/1em/10%'
         }) }}
         {{ forms.textField({
-            label: 'Margin'|t('app'),
+            label: 'Margin',
             id: 'margin',
             name: 'margin',
             value: displaySettings.margin,
             size: 50,
             errors: displaySettings.getErrors('margin'),
+            instructions: 'f.e 20px/10px 10px 10px 10px/1rem 1rem'
         }) }}
 
     </div>
