@@ -53,9 +53,6 @@ class DisplaySettingsController extends Controller
     public function actionSave(): ?Response
     {
         $data = $this->request->getBodyParams();
-
-
-
         $data['avatarAssetId'] = $data['avatarAssetId'][0] ?? null;
 
         $this->displaySettings->setAttributes($data);
