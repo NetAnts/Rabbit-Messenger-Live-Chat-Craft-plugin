@@ -86,7 +86,7 @@ class PluginTest extends TestCase
         $this->assertCount(1, $event->navItems);
         $expectedNavItem = [
             'url' => 'whatsrabbit-live-chat/display-settings/edit',
-            'label' => 'What\'sRabbit LiveChat',
+            'label' => 'What\'sRabbit Live-chat',
             'icon' => '@NetAnts/WhatsRabbitLiveChat/icon.svg',
         ];
 

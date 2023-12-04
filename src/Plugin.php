@@ -61,7 +61,7 @@ class Plugin extends \craft\base\Plugin
             );
 
             /**
-             * Register live chat hook and files
+             * Register Live-chat hook and files
              */
 
             $pluginAssetsUrl = getenv('LIVECHAT_ASSETS_DOMAIN') ?: self::LIVECHAT_ASSETS_DOMAIN;
@@ -73,8 +73,6 @@ class Plugin extends \craft\base\Plugin
             Craft::$app->getView()->registerCssFile(sprintf('//%s/styles.css', $pluginAssetsUrl));
             Craft::$app->getView()->registerJsFile(sprintf('//%s/polyfills.js', $pluginAssetsUrl));
             Craft::$app->getView()->registerJsFile(sprintf('//%s/main.js', $pluginAssetsUrl));
-            Craft::$app->getView()->registerJsFile(sprintf('//%s/vendor.js', $pluginAssetsUrl));
-            Craft::$app->getView()->registerJsFile(sprintf('//%s/runtime.js', $pluginAssetsUrl));
         }
     }
 
@@ -82,7 +80,7 @@ class Plugin extends \craft\base\Plugin
     {
         $event->navItems[] = [
             'url' => 'whatsrabbit-live-chat/display-settings/edit',
-            'label' => 'What\'sRabbit LiveChat',
+            'label' => 'What\'sRabbit Live-chat',
             'icon' => '@NetAnts/WhatsRabbitLiveChat/icon.svg'
 
         ];
