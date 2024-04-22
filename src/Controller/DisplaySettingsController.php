@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace NetAnts\WhatsRabbitLiveChat\Controller;
+namespace Rabbit\RabbitMessengerLiveChat\Controller;
 
 use Craft;
 use craft\web\Controller;
 use craft\web\View;
-use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
-use NetAnts\WhatsRabbitLiveChat\Model\DisplayOptions;
-use NetAnts\WhatsRabbitLiveChat\Model\DisplaySettings;
-use NetAnts\WhatsRabbitLiveChat\Plugin;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
-use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
+use Rabbit\RabbitMessengerLiveChat\Exception\InvalidDataException;
+use Rabbit\RabbitMessengerLiveChat\Model\DisplayOptions;
+use Rabbit\RabbitMessengerLiveChat\Model\DisplaySettings;
+use Rabbit\RabbitMessengerLiveChat\Plugin;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
+use Rabbit\RabbitMessengerLiveChat\ValueObject\LiveChatConfig;
 use Throwable;
 use yii\base\InvalidConfigException;
 use yii\web\BadRequestHttpException;

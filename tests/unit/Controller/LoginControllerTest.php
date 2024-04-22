@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace NetAnts\WhatsRabbitLiveChatTest\Controller;
+namespace Rabbit\RabbitMessengerLiveChatTest\Controller;
 
 use craft\web\Request;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
-use NetAnts\WhatsRabbitLiveChat\Controller\LoginController;
-use NetAnts\WhatsRabbitLiveChat\Factory\LiveChatServiceFactory;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
+use Rabbit\RabbitMessengerLiveChat\Controller\LoginController;
+use Rabbit\RabbitMessengerLiveChat\Factory\LiveChatServiceFactory;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Whatsrabbit\LiveChatPluginCore\LiveChatService;

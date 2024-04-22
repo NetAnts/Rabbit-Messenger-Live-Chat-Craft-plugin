@@ -31,11 +31,11 @@ modules:
       projectConfig: {}
       migrations:
         whatsrabbit-live-chat:
-          class: '\NetAnts\WhatsRabbitLiveChat\migrations\Install'
+          class: '\Rabbit\RabbitMessengerLiveChat\migrations\Install'
           params: []
       plugins:
         whatsrabbit-live-chat:
-          class: '\NetAnts\WhatsRabbitLiveChat\Plugin'
+          class: '\Rabbit\RabbitMessengerLiveChat\Plugin'
           handle: whatsrabbit-live-chat
       cleanup: true
       transaction: true

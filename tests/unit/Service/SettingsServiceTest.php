@@ -1,14 +1,14 @@
 <?php
 
-namespace NetAnts\WhatsRabbitLiveChatTest\Service;
+namespace Rabbit\RabbitMessengerLiveChatTest\Service;
 
 use Craft;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
-use NetAnts\WhatsRabbitLiveChat\Plugin;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
-use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
+use Rabbit\RabbitMessengerLiveChat\Plugin;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
+use Rabbit\RabbitMessengerLiveChat\ValueObject\LiveChatConfig;
 use PHPUnit\Framework\TestCase;
 
 class SettingsServiceTest extends TestCase

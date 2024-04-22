@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace NetAnts\WhatsRabbitLiveChat\ValueObject;
+namespace Rabbit\RabbitMessengerLiveChat\ValueObject;
 
-use NetAnts\WhatsRabbitLiveChat\db\Settings;
-use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
+use Rabbit\RabbitMessengerLiveChat\db\Settings;
+use Rabbit\RabbitMessengerLiveChat\Exception\InvalidDataException;
 
 class LiveChatConfig
 {

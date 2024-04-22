@@ -1,6 +1,6 @@
 <?php
 
-namespace NetAnts\WhatsRabbitLiveChat\db;
+namespace Rabbit\RabbitMessengerLiveChat\db;
 
 use yii\db\ActiveRecord;
 

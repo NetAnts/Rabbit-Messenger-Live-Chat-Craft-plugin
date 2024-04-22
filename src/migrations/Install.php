@@ -1,6 +1,6 @@
 <?php
 
-namespace NetAnts\WhatsRabbitLiveChat\migrations;
+namespace Rabbit\RabbitMessengerLiveChat\migrations;
 
 use craft\db\Migration;
 

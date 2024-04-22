@@ -1,12 +1,12 @@
 <?php
 
-namespace NetAnts\WhatsRabbitLiveChat\Service;
+namespace Rabbit\RabbitMessengerLiveChat\Service;
 
 use Craft;
 use craft\base\PluginInterface;
-use NetAnts\WhatsRabbitLiveChat\db\Settings;
-use NetAnts\WhatsRabbitLiveChat\Plugin;
-use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
+use Rabbit\RabbitMessengerLiveChat\db\Settings;
+use Rabbit\RabbitMessengerLiveChat\Plugin;
+use Rabbit\RabbitMessengerLiveChat\ValueObject\LiveChatConfig;
 
 class SettingsService
 {

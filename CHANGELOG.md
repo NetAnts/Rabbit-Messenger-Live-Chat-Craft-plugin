@@ -1,4 +1,4 @@
-# Release Notes for What'sRabbit LiveChat
+# Release Notes for Rabbit Messenger LiveChat
 
 ## 0.0.2 - 2023-08-15
 - Adding license and changelog

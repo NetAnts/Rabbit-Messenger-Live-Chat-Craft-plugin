@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace NetAnts\WhatsRabbitLiveChat\Controller;
+namespace Rabbit\RabbitMessengerLiveChat\Controller;
 
 use craft\web\Controller;
 use GuzzleHttp\Client;
-use NetAnts\WhatsRabbitLiveChat\Factory\LiveChatServiceFactory;
-use NetAnts\WhatsRabbitLiveChat\Plugin;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
+use Rabbit\RabbitMessengerLiveChat\Factory\LiveChatServiceFactory;
+use Rabbit\RabbitMessengerLiveChat\Plugin;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
 use Whatsrabbit\LiveChatPluginCore\Exception\LiveChatException;
 use Whatsrabbit\LiveChatPluginCore\LiveChatService;
 use yii\base\Module;
