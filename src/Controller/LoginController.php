@@ -9,8 +9,8 @@ use GuzzleHttp\Client;
 use Rabbit\RabbitMessengerLiveChat\Factory\LiveChatServiceFactory;
 use Rabbit\RabbitMessengerLiveChat\Plugin;
 use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
-use Whatsrabbit\LiveChatPluginCore\Exception\LiveChatException;
-use Whatsrabbit\LiveChatPluginCore\LiveChatService;
+use Rabbit\LiveChatPluginCore\Exception\LiveChatException;
+use Rabbit\LiveChatPluginCore\LiveChatService;
 use yii\base\Module;
 use yii\web\Response;
 

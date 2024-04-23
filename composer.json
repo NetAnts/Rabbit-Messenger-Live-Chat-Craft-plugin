@@ -48,6 +48,6 @@
     },
     "require": {
         "craftcms/cms": "^4.4",
-        "whatsrabbit/live-chat-plugin-core": "^1.0"
+        "rabbit-software/live-chat-plugin-core": "^1.0"
     }
 }

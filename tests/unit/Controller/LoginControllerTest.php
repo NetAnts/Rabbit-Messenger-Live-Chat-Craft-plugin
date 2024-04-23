@@ -13,8 +13,8 @@ use Rabbit\RabbitMessengerLiveChat\Factory\LiveChatServiceFactory;
 use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Whatsrabbit\LiveChatPluginCore\LiveChatService;
-use Whatsrabbit\LiveChatPluginCore\ValueObject\AuthenticationResponse;
+use Rabbit\LiveChatPluginCore\LiveChatService;
+use Rabbit\LiveChatPluginCore\ValueObject\AuthenticationResponse;
 use yii\base\Module;
 use yii\web\Response;
 

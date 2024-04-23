@@ -10,7 +10,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Rabbit\RabbitMessengerLiveChat\Factory\LiveChatServiceFactory;
 use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
 use PHPUnit\Framework\TestCase;
-use Whatsrabbit\LiveChatPluginCore\LiveChatService;
+use Rabbit\LiveChatPluginCore\LiveChatService;
 
 class LiveChatServiceFactoryTest extends TestCase
 {

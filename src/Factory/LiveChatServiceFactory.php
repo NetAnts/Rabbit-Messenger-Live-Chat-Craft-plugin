@@ -8,7 +8,7 @@ use craft\helpers\App;
 use GuzzleHttp\Client;
 use Rabbit\RabbitMessengerLiveChat\Plugin;
 use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
-use Whatsrabbit\LiveChatPluginCore\LiveChatService;
+use Rabbit\LiveChatPluginCore\LiveChatService;
 
 class LiveChatServiceFactory
 {

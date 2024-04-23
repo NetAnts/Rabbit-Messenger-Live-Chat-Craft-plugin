@@ -25,7 +25,7 @@ class PluginTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->plugin = new Plugin('whatsrabbit-live-chat');
+        $this->plugin = new Plugin('rabbit-messenger-live-chat');
     }
 
     public function testCanCreate(): void
@@ -73,7 +73,7 @@ class PluginTest extends TestCase
         $this->plugin->init();
 
         // Then
-        $this->assertStringContainsString('<whatsrabbit-live-chat-widget', Craft::$app->getView()->getBodyHtml());
+        $this->assertStringContainsString('<rabbit-messenger-live-chat-widget', Craft::$app->getView()->getBodyHtml());
     }
 
     public function testAddNavItem(): void
@@ -85,8 +85,8 @@ class PluginTest extends TestCase
 
         $this->assertCount(1, $event->navItems);
         $expectedNavItem = [
-            'url' => 'whatsrabbit-live-chat/display-settings/edit',
-            'label' => 'What\'sRabbit Live-chat',
+            'url' => 'rabbit-messenger-live-chat/display-settings/edit',
+            'label' => 'Rabbit Messenger Live-chat',
             'icon' => '@Rabbit/RabbitMessengerLiveChat/icon.svg',
         ];
 
@@ -102,7 +102,7 @@ class PluginTest extends TestCase
 
         $this->assertCount(1, $event->rules);
         $expectedRules = [
-            'whatsrabbit-live-chat' => 'login/getToken'
+            'rabbit-messenger-live-chat' => 'login/getToken'
         ];
         $this->assertSame($expectedRules, $event->rules);
     }
@@ -116,7 +116,7 @@ class PluginTest extends TestCase
 
         $this->assertCount(1, $event->rules);
         $expectedRules = [
-            'whatsrabbit-live-chat/display-settings/edit' => 'whatsrabbit-live-chat/display-settings/edit'
+            'rabbit-messenger-live-chat/display-settings/edit' => 'rabbit-messenger-live-chat/display-settings/edit'
         ];
         $this->assertSame($expectedRules, $event->rules);
     }
@@ -136,15 +136,15 @@ class PluginTest extends TestCase
         ];
         $this->plugin->setSettings($settings);
         $response = $this->plugin->getLiveChatWidget($context);
-        $expectedHtml = '<whatsrabbit-live-chat-widget
+        $expectedHtml = '<rabbit-messenger-live-chat-widget
                                     avatar-url=""
-                                    login-url="/actions/whatsrabbit-live-chat/login/get-token"
+                                    login-url="/actions/rabbit-messenger-live-chat/login/get-token"
                                     whatsapp-url=""
                                     welcome-title=""
                                     welcome-description=""
                                     display-options="{&quot;position&quot;:null,&quot;z-index&quot;:null,&quot;left&quot;:null,' .
                                     '&quot;right&quot;:null,&quot;bottom&quot;:null,&quot;top&quot;:null,&quot;margin&quot;:null}"
-                                ></whatsrabbit-live-chat-widget>';
+                                ></rabbit-messenger-live-chat-widget>';
         $this->assertSame(preg_replace("(\s+)", "\s", $expectedHtml), preg_replace("(\s+)", "\s", $response));
     }
 }

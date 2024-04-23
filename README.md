@@ -3,9 +3,9 @@
 This plugin injects a Live-chat widget into your website (when necessary config is set) via a Twig hook used in your page template.
 
 ### Installing the plugin
-1. Require the plugin via composer `composer require netants/whatsrabbit-live-chat`
+1. Require the plugin via composer `composer require rabbit/rabbit-messenger-live-chat`
 2. Install the plugin in your CraftCMS dashboard
-   1. Login in your CraftCMS dashbord
+   1. Login in your CraftCMS dashboard
    2. Click "Settings" in the left sidebar
    3. Click "Plugins"
    4. Click on the cog icon on the right side and click "Install"
@@ -18,5 +18,5 @@ This plugin injects a Live-chat widget into your website (when necessary config 
    4. `Title` _The title which will show in the Live-chat widget on your website_
    5. `Description` _The description/short text which will show in the Live-chat widget on your website_
    6. `WhatsApp URL` _The WhatsApp button in the Live-chat widget will redirect to this URL when a user does not want to start a Live-chat_
-5. Now it's time to add the following Twig hook to your page template: `{% hook 'whatsrabbit-live-chat' %}`. 
+5. Now it's time to add the following Twig hook to your page template: `{% hook 'rabbit-messenger-live-chat' %}`. 
 6. Once all of these steps have been done, the Live-chat widget will show on your website and you can start with receiving Live-chats within your Rabbit Messenger application. 

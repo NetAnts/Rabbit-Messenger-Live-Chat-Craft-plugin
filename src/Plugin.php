@@ -19,8 +19,8 @@ class Plugin extends \craft\base\Plugin
 {
     public bool $hasCpSettings = true;
 
-    public const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
-    public const LIVECHAT_ASSETS_DOMAIN = 'cdn.plugins.whatsrabbit.com';
+    public const PLUGIN_REPO_PROD_URL = 'plugins.rabbit.nl';
+    public const LIVECHAT_ASSETS_DOMAIN = 'cdn.plugins.rabbit.nl';
     private ?SettingsService $service;
 
     public function __construct($id, $parent = null, array $config = [])
@@ -82,7 +82,6 @@ class Plugin extends \craft\base\Plugin
             'url' => 'rabbit-messenger-live-chat/display-settings/edit',
             'label' => 'Rabbit Messenger Live-chat',
             'icon' => '@Rabbit/RabbitMessengerLiveChat/icon.svg'
-
         ];
     }
 

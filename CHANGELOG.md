@@ -5,4 +5,4 @@
 - Changing required package from internal to packagist
 
 ## 0.0.1 - 2023-08-15
-- Initial implementation for the What'sRabbit LiveChat Craft plugin
+- Initial implementation for the Rabbit Messenger LiveChat Craft plugin

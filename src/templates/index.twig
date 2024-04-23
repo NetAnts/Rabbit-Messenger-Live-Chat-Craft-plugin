@@ -5,12 +5,12 @@
 {% set foundAsset = displaySettings.avatarAssetId ? craft.assets().id(displaySettings.avatarAssetId) : null %}
 {% set crumbs  = [
     {
-        label: 'What\'sRabbit Live-chat',
-        url: url('whatsrabbit-live-chat/display-settings/edit'),
+        label: 'Rabbit Messenger Live-chat',
+        url: url('rabbit-messenger-live-chat/display-settings/edit'),
     },
     {
         label: 'Settings',
-        url: url('whatsrabbit-live-chat/display-settings/edit'),
+        url: url('rabbit-messenger-live-chat/display-settings/edit'),
     },
 ]%}
 {% set tabs = {
@@ -31,7 +31,7 @@
 {%- endblock %}
 
 {% block content %}
-    {{ actionInput('whatsrabbit-live-chat/display-settings/save') }}
+    {{ actionInput('rabbit-messenger-live-chat/display-settings/save') }}
     <div id="api-settings">
        {{ forms.elementSelectField({
            label: "Avatar",

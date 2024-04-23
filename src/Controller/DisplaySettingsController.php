@@ -40,7 +40,7 @@ class DisplaySettingsController extends Controller
             $displaySettings =  $this->displaySettings;
         }
         return $this->renderTemplate(
-            'whatsrabbit-live-chat/index',
+            'rabbit-messenger-live-chat/index',
             ['displaySettings' => $displaySettings],
             View::TEMPLATE_MODE_CP
         );
