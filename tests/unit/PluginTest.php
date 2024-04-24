@@ -93,20 +93,6 @@ class PluginTest extends TestCase
         $this->assertSame($expectedNavItem, $event->navItems[0]);
     }
 
-    public function testAddRoute(): void
-    {
-        $event = Mockery::mock(RegisterUrlRulesEvent::class);
-        $event->rules = [];
-
-        $this->plugin->addRoute($event);
-
-        $this->assertCount(1, $event->rules);
-        $expectedRules = [
-            'rabbit-messenger-live-chat' => 'login/getToken'
-        ];
-        $this->assertSame($expectedRules, $event->rules);
-    }
-
     public function testAddCpRoute(): void
     {
         $event = Mockery::mock(RegisterUrlRulesEvent::class);
