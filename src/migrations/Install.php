@@ -5,7 +5,7 @@ namespace Rabbit\RabbitMessengerLiveChat\migrations;
 use craft\db\Migration;
 
 /**
- * m230808_090125_rabbitmessenger_livechat_settings migration.
+ * m230808_090125_rabbit_messenger_livechat_settings migration.
  */
 class Install extends Migration
 {
@@ -14,10 +14,10 @@ class Install extends Migration
      */
     public function safeUp(): bool
     {
-        $this->dropTableIfExists('{{%rabbitmessenger_livechat_settings}}');
+        $this->dropTableIfExists('{{%rabbit_messenger_livechat_settings}}');
 
         $this->createTable(
-            '{{%rabbitmessenger_livechat_settings}}',
+            '{{%rabbit_messenger_livechat_settings}}',
             [
                 'id' => $this->primaryKey(),
                 'avatar_asset_id' => $this->integer()->notNull(),
@@ -43,7 +43,7 @@ class Install extends Migration
      */
     public function safeDown(): bool
     {
-        $this->dropTableIfExists('{{%rabbitmessenger_livechat_settings}}');
+        $this->dropTableIfExists('{{%rabbit_messenger_livechat_settings}}');
         return true;
     }
 }

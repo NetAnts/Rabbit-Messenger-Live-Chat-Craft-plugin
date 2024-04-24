@@ -8,6 +8,6 @@ class Settings extends ActiveRecord
 {
     public static function tableName(): string
     {
-        return '{{%rabbitmessenger_livechat_settings}}';
+        return '{{%rabbit_messenger_livechat_settings}}';
     }
 }
