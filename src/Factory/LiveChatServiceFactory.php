@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace NetAnts\WhatsRabbitLiveChat\Factory;
+namespace Rabbit\RabbitMessengerLiveChat\Factory;
 
 use craft\helpers\App;
 use GuzzleHttp\Client;
-use NetAnts\WhatsRabbitLiveChat\Plugin;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
-use Whatsrabbit\LiveChatPluginCore\LiveChatService;
+use Rabbit\RabbitMessengerLiveChat\Plugin;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
+use Rabbit\LiveChatPluginCore\LiveChatService;
 
 class LiveChatServiceFactory
 {
