@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NetAnts\WhatsRabbitLiveChat;
+namespace Rabbit\RabbitMessengerLiveChat;
 
 use Craft;
 use craft\base\Model;
@@ -10,17 +10,17 @@ use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\twig\variables\Cp;
 use craft\web\UrlManager;
-use NetAnts\WhatsRabbitLiveChat\Model\ApiSettings;
-use NetAnts\WhatsRabbitLiveChat\Model\DisplaySettings;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
+use Rabbit\RabbitMessengerLiveChat\Model\ApiSettings;
+use Rabbit\RabbitMessengerLiveChat\Model\DisplaySettings;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
 use yii\base\Event;
 
 class Plugin extends \craft\base\Plugin
 {
     public bool $hasCpSettings = true;
 
-    public const PLUGIN_REPO_PROD_URL = 'plugins.whatsrabbit.com';
-    public const LIVECHAT_ASSETS_DOMAIN = 'cdn.plugins.whatsrabbit.com';
+    public const PLUGIN_REPO_PROD_URL = 'plugins.rabbit.nl';
+    public const LIVECHAT_ASSETS_DOMAIN = 'cdn.plugins.rabbit.nl';
     private ?SettingsService $service;
 
     public function __construct($id, $parent = null, array $config = [])
@@ -31,7 +31,7 @@ class Plugin extends \craft\base\Plugin
 
     public function init(): void
     {
-        $this->controllerNamespace = 'NetAnts\\WhatsRabbitLiveChat\\Controller';
+        $this->controllerNamespace = 'Rabbit\\RabbitMessengerLiveChat\\Controller';
 
         parent::init();
         if ($this->isInstalled) {
@@ -43,15 +43,6 @@ class Plugin extends \craft\base\Plugin
                 Cp::class,
                 Cp::EVENT_REGISTER_CP_NAV_ITEMS,
                 [$this, 'addNavItem'],
-            );
-
-            /**
-             * Register api route
-             */
-            Event::on(
-                UrlManager::class,
-                UrlManager::EVENT_REGISTER_SITE_URL_RULES,
-                [$this, 'addRoute'],
             );
 
             Event::on(
@@ -79,21 +70,15 @@ class Plugin extends \craft\base\Plugin
     public function addNavItem(RegisterCpNavItemsEvent $event): void
     {
         $event->navItems[] = [
-            'url' => 'whatsrabbit-live-chat/display-settings/edit',
-            'label' => 'What\'sRabbit Live-chat',
-            'icon' => '@NetAnts/WhatsRabbitLiveChat/icon.svg'
-
+            'url' => 'rabbit-messenger-live-chat/display-settings/edit',
+            'label' => 'Rabbit Messenger Live-chat',
+            'icon' => '@Rabbit/RabbitMessengerLiveChat/icon.svg'
         ];
-    }
-
-    public function addRoute(RegisterUrlRulesEvent $event): void
-    {
-        $event->rules['whatsrabbit-live-chat'] = 'login/getToken';
     }
 
     public function addCpRoute(RegisterUrlRulesEvent $event): void
     {
-        $event->rules['whatsrabbit-live-chat/display-settings/edit'] = 'whatsrabbit-live-chat/display-settings/edit';
+        $event->rules['rabbit-messenger-live-chat/display-settings/edit'] = 'rabbit-messenger-live-chat/display-settings/edit';
     }
 
 
@@ -114,16 +99,16 @@ class Plugin extends \craft\base\Plugin
         ];
 
         return sprintf(
-            '<whatsrabbit-live-chat-widget
+            '<rabbit-messenger-live-chat-widget
                         avatar-url="%s"
                         login-url="%s"
                         whatsapp-url="%s"
                         welcome-title="%s"
                         welcome-description="%s"
                         display-options="%s"
-                    ></whatsrabbit-live-chat-widget>',
+                    ></rabbit-messenger-live-chat-widget>',
             $asset?->url,
-            '/actions/whatsrabbit-live-chat/login/get-token',
+            '/actions/rabbit-messenger-live-chat/login/get-token',
             $settings?->whatsAppUrl,
             $settings?->title,
             $settings?->description,
@@ -140,7 +125,7 @@ class Plugin extends \craft\base\Plugin
     protected function settingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate(
-            'whatsrabbit-live-chat/settings',
+            'rabbit-messenger-live-chat/settings',
             ['settings' => $this->getSettings()]
         );
     }

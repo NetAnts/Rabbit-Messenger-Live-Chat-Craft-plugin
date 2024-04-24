@@ -1,6 +1,6 @@
 <?php
 
-namespace NetAnts\WhatsRabbitLiveChat\Model;
+namespace Rabbit\RabbitMessengerLiveChat\Model;
 
 use craft\base\Model;
 

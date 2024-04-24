@@ -9,3 +9,4 @@ coverage
 .phpunit.cache
 .phpcs-cache
 auth.json
+.idea
