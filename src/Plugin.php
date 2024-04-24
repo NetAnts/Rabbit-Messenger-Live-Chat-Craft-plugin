@@ -45,15 +45,6 @@ class Plugin extends \craft\base\Plugin
                 [$this, 'addNavItem'],
             );
 
-            /**
-             * Register api route
-             */
-            Event::on(
-                UrlManager::class,
-                UrlManager::EVENT_REGISTER_SITE_URL_RULES,
-                [$this, 'addRoute'],
-            );
-
             Event::on(
                 UrlManager::class,
                 UrlManager::EVENT_REGISTER_CP_URL_RULES,
@@ -83,11 +74,6 @@ class Plugin extends \craft\base\Plugin
             'label' => 'Rabbit Messenger Live-chat',
             'icon' => '@Rabbit/RabbitMessengerLiveChat/icon.svg'
         ];
-    }
-
-    public function addRoute(RegisterUrlRulesEvent $event): void
-    {
-        $event->rules['rabbit-messenger-live-chat'] = 'login/getToken';
     }
 
     public function addCpRoute(RegisterUrlRulesEvent $event): void

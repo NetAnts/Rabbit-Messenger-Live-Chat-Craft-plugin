@@ -18,6 +18,7 @@ class LoginController extends Controller
 {
     private LiveChatService $liveChatService;
     protected int|bool|array $allowAnonymous = true;
+    public $enableCsrfValidation = false;
 
     public function __construct(
         string $id,
@@ -35,6 +36,7 @@ class LoginController extends Controller
      */
     public function actionGetToken(): Response
     {
+        $this->requirePostRequest();
         return $this->asJson($this->liveChatService->fetchToken());
     }
 }
