@@ -1,13 +1,13 @@
 {
-    "name": "netants/whatsrabbit-live-chat",
-    "description": "This plugin provides a What'sRabbit Live-chat widget for your CraftCMS website",
+    "name": "rabbit/rabbit-messenger-live-chat",
+    "description": "This plugin provides a Rabbit Messenger Live-chat widget for your CraftCMS website",
     "license": "MIT",
     "type": "craft-plugin",
     "authors": [
         {
-            "name": "NetAnts",
-            "email": "info@netants.nl",
-            "homepage": "https://netants.nl"
+            "name": "Rabbit",
+            "email": "info@rabbit.nl",
+            "homepage": "https://rabbit.nl"
         }
     ],
     "require-dev": {
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NetAnts\\WhatsRabbitLiveChat\\": "src/"
+            "Rabbit\\RabbitMessengerLiveChat\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NetAnts\\WhatsRabbitLiveChatTest\\": "tests/unit/"
+            "Rabbit\\RabbitMessengerLiveChatTest\\": "tests/unit/"
         }
     },
     "scripts": {
@@ -36,8 +36,8 @@
         "ci-phpcs": "@cs-check --report=junit --report-file=./.coverage/.phpcs-junit-report.xml"
     },
     "extra": {
-        "name": "What'sRabbit Live-chat",
-        "handle": "whatsrabbit-live-chat"
+        "name": "Rabbit Messenger Live-chat",
+        "handle": "rabbit-messenger-live-chat"
     },
     "config": {
         "allow-plugins": {
@@ -48,6 +48,6 @@
     },
     "require": {
         "craftcms/cms": "^4.4",
-        "whatsrabbit/live-chat-plugin-core": "^1.0"
+        "rabbit-software/live-chat-plugin-core": "^1.0"
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace NetAnts\WhatsRabbitLiveChat\Exception;
+namespace Rabbit\RabbitMessengerLiveChat\Exception;
 
 use Exception;
 

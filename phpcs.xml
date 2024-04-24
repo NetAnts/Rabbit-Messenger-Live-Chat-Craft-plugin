@@ -8,7 +8,7 @@
     <arg name="extensions" value="php"/>
     <arg name="parallel" value="80"/>
 
-    <!-- NetAnts: Warnings are still shown, but do not return a non-zero exit code -->
+    <!-- Rabbit: Warnings are still shown, but do not return a non-zero exit code -->
     <config name="ignore_warnings_on_exit" value="1"/>
 
     <!-- Show progress -->
@@ -26,7 +26,7 @@
     </rule>
 
 
-    <!-- NetAnts: Exclude some files from line length warning rule -->
+    <!-- Rabbit: Exclude some files from line length warning rule -->
     <rule ref="Generic.Files.LineLength">
         <!-- Using only 120 characters is so antiquated. -->
         <properties>
@@ -34,7 +34,7 @@
         </properties>
     </rule>
 
-    <!-- Netants: Uncaught Exceptions should be documented -->
+    <!-- Rabbit: Uncaught Exceptions should be documented -->
     <rule ref="Squiz.Commenting.FunctionCommentThrowTag">
         <type>warning</type>
     </rule>

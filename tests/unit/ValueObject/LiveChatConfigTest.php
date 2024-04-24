@@ -1,11 +1,11 @@
 <?php
 
-namespace NetAnts\WhatsRabbitLiveChatTest\ValueObject;
+namespace Rabbit\RabbitMessengerLiveChatTest\ValueObject;
 
-use NetAnts\WhatsRabbitLiveChat\db\Settings;
-use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
-use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
+use Rabbit\RabbitMessengerLiveChat\db\Settings;
+use Rabbit\RabbitMessengerLiveChat\Exception\InvalidDataException;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
+use Rabbit\RabbitMessengerLiveChat\ValueObject\LiveChatConfig;
 
 class LiveChatConfigTest extends \Codeception\PHPUnit\TestCase
 {

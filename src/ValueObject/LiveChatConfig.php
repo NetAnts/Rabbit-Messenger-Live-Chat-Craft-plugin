@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace NetAnts\WhatsRabbitLiveChat\ValueObject;
+namespace Rabbit\RabbitMessengerLiveChat\ValueObject;
 
-use NetAnts\WhatsRabbitLiveChat\db\Settings;
-use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
+use Rabbit\RabbitMessengerLiveChat\db\Settings;
+use Rabbit\RabbitMessengerLiveChat\Exception\InvalidDataException;
 
 class LiveChatConfig
 {
@@ -53,7 +53,7 @@ class LiveChatConfig
             $data['description'],
             $data['whatsAppUrl'],
             (bool)$data['enabled'],
-            '/actions/whatsrabbit-live-chat/login/get-token',
+            '/actions/rabbit-messenger-live-chat/login/get-token',
             $data['position'],
             $data['zIndex'],
             $data['left'],
@@ -72,7 +72,7 @@ class LiveChatConfig
             $settings->description,
             $settings->whatsapp_url,
             (bool)$settings->enabled,
-            '/actions/whatsrabbit-live-chat/login/get-token',
+            '/actions/rabbit-messenger-live-chat/login/get-token',
             $settings->position,
             $settings->z_index,
             $settings->left,

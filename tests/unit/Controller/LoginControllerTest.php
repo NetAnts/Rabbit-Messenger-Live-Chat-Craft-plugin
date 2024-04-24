@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace NetAnts\WhatsRabbitLiveChatTest\Controller;
+namespace Rabbit\RabbitMessengerLiveChatTest\Controller;
 
 use craft\web\Request;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
-use NetAnts\WhatsRabbitLiveChat\Controller\LoginController;
-use NetAnts\WhatsRabbitLiveChat\Factory\LiveChatServiceFactory;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Whatsrabbit\LiveChatPluginCore\LiveChatService;
-use Whatsrabbit\LiveChatPluginCore\ValueObject\AuthenticationResponse;
+use Rabbit\LiveChatPluginCore\LiveChatService;
+use Rabbit\LiveChatPluginCore\ValueObject\AuthenticationResponse;
+use Rabbit\RabbitMessengerLiveChat\Controller\LoginController;
+use Rabbit\RabbitMessengerLiveChat\Factory\LiveChatServiceFactory;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
 use yii\base\Module;
-use yii\web\Response;
+use yii\web\BadRequestHttpException;
 
 class LoginControllerTest extends TestCase
 {
@@ -49,6 +49,7 @@ class LoginControllerTest extends TestCase
     {
         // Given
         $request = Mockery::mock(Request::class);
+        $request->expects('getIsPost')->andReturnTrue();
         $this->loginController->request = $request;
         $authenticationResponse = AuthenticationResponse::createFromArray([
             'externalId' => 'some-external-id',
@@ -63,5 +64,19 @@ class LoginControllerTest extends TestCase
 
         // Then
         $this->assertEquals(json_encode($authenticationResponse), json_encode($response->data));
+    }
+
+    public function testActionGetTokenWithGet(): void
+    {
+        // Given
+        $request = Mockery::mock(Request::class);
+        $request->expects('getIsPost')->andReturnFalse();
+        $this->loginController->request = $request;
+
+        // Then
+        $this->expectException(BadRequestHttpException::class);
+
+        // When
+        $response = $this->loginController->actionGetToken();
     }
 }

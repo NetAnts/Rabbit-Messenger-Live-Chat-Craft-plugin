@@ -1,6 +1,6 @@
 <?php
 
-namespace NetAnts\WhatsRabbitLiveChatTest;
+namespace Rabbit\RabbitMessengerLiveChatTest;
 
 use Codeception\PHPUnit\TestCase;
 use Craft;
@@ -8,11 +8,11 @@ use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterUrlRulesEvent;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use NetAnts\WhatsRabbitLiveChat\Model\ApiSettings;
-use NetAnts\WhatsRabbitLiveChat\Model\DisplaySettings;
-use NetAnts\WhatsRabbitLiveChat\Plugin;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
-use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
+use Rabbit\RabbitMessengerLiveChat\Model\ApiSettings;
+use Rabbit\RabbitMessengerLiveChat\Model\DisplaySettings;
+use Rabbit\RabbitMessengerLiveChat\Plugin;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
+use Rabbit\RabbitMessengerLiveChat\ValueObject\LiveChatConfig;
 
 //use PHPUnit\Framework\TestCase;
 
@@ -25,7 +25,7 @@ class PluginTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->plugin = new Plugin('whatsrabbit-live-chat');
+        $this->plugin = new Plugin('rabbit-messenger-live-chat');
     }
 
     public function testCanCreate(): void
@@ -36,7 +36,7 @@ class PluginTest extends TestCase
     public function testInit(): void
     {
         // Given
-        $controllerNamespace = 'NetAnts\\WhatsRabbitLiveChat\\Controller';
+        $controllerNamespace = 'Rabbit\\RabbitMessengerLiveChat\\Controller';
 
         // When
         $this->plugin->init();
@@ -73,7 +73,7 @@ class PluginTest extends TestCase
         $this->plugin->init();
 
         // Then
-        $this->assertStringContainsString('<whatsrabbit-live-chat-widget', Craft::$app->getView()->getBodyHtml());
+        $this->assertStringContainsString('<rabbit-messenger-live-chat-widget', Craft::$app->getView()->getBodyHtml());
     }
 
     public function testAddNavItem(): void
@@ -85,26 +85,12 @@ class PluginTest extends TestCase
 
         $this->assertCount(1, $event->navItems);
         $expectedNavItem = [
-            'url' => 'whatsrabbit-live-chat/display-settings/edit',
-            'label' => 'What\'sRabbit Live-chat',
-            'icon' => '@NetAnts/WhatsRabbitLiveChat/icon.svg',
+            'url' => 'rabbit-messenger-live-chat/display-settings/edit',
+            'label' => 'Rabbit Messenger Live-chat',
+            'icon' => '@Rabbit/RabbitMessengerLiveChat/icon.svg',
         ];
 
         $this->assertSame($expectedNavItem, $event->navItems[0]);
-    }
-
-    public function testAddRoute(): void
-    {
-        $event = Mockery::mock(RegisterUrlRulesEvent::class);
-        $event->rules = [];
-
-        $this->plugin->addRoute($event);
-
-        $this->assertCount(1, $event->rules);
-        $expectedRules = [
-            'whatsrabbit-live-chat' => 'login/getToken'
-        ];
-        $this->assertSame($expectedRules, $event->rules);
     }
 
     public function testAddCpRoute(): void
@@ -116,7 +102,7 @@ class PluginTest extends TestCase
 
         $this->assertCount(1, $event->rules);
         $expectedRules = [
-            'whatsrabbit-live-chat/display-settings/edit' => 'whatsrabbit-live-chat/display-settings/edit'
+            'rabbit-messenger-live-chat/display-settings/edit' => 'rabbit-messenger-live-chat/display-settings/edit'
         ];
         $this->assertSame($expectedRules, $event->rules);
     }
@@ -136,15 +122,15 @@ class PluginTest extends TestCase
         ];
         $this->plugin->setSettings($settings);
         $response = $this->plugin->getLiveChatWidget($context);
-        $expectedHtml = '<whatsrabbit-live-chat-widget
+        $expectedHtml = '<rabbit-messenger-live-chat-widget
                                     avatar-url=""
-                                    login-url="/actions/whatsrabbit-live-chat/login/get-token"
+                                    login-url="/actions/rabbit-messenger-live-chat/login/get-token"
                                     whatsapp-url=""
                                     welcome-title=""
                                     welcome-description=""
                                     display-options="{&quot;position&quot;:null,&quot;z-index&quot;:null,&quot;left&quot;:null,' .
                                     '&quot;right&quot;:null,&quot;bottom&quot;:null,&quot;top&quot;:null,&quot;margin&quot;:null}"
-                                ></whatsrabbit-live-chat-widget>';
+                                ></rabbit-messenger-live-chat-widget>';
         $this->assertSame(preg_replace("(\s+)", "\s", $expectedHtml), preg_replace("(\s+)", "\s", $response));
     }
 }

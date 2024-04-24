@@ -12,7 +12,7 @@
          verbose="true"
          colors="true">
     <testsuites>
-        <testsuite name="NetAnts\WhatsRabbitLiveChatTest">
+        <testsuite name="Rabbit\RabbitMessengerLiveChatTest">
             <directory>./test</directory>
         </testsuite>
     </testsuites>

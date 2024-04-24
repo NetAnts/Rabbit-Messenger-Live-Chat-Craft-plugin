@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NetAnts\WhatsRabbitLiveChatTest\Controller;
+namespace Rabbit\RabbitMessengerLiveChatTest\Controller;
 
 use Craft;
 use craft\test\TestSetup;
@@ -10,11 +10,11 @@ use craft\web\Request;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
-use NetAnts\WhatsRabbitLiveChat\Controller\DisplaySettingsController;
-use NetAnts\WhatsRabbitLiveChat\Exception\InvalidDataException;
-use NetAnts\WhatsRabbitLiveChat\Model\DisplaySettings;
-use NetAnts\WhatsRabbitLiveChat\Service\SettingsService;
-use NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig;
+use Rabbit\RabbitMessengerLiveChat\Controller\DisplaySettingsController;
+use Rabbit\RabbitMessengerLiveChat\Exception\InvalidDataException;
+use Rabbit\RabbitMessengerLiveChat\Model\DisplaySettings;
+use Rabbit\RabbitMessengerLiveChat\Service\SettingsService;
+use Rabbit\RabbitMessengerLiveChat\ValueObject\LiveChatConfig;
 use PHPUnit\Framework\TestCase;
 use yii\base\Module;
 use yii\web\Response;
@@ -161,7 +161,7 @@ class DisplaySettingsControllerTest extends TestCase
         $this->controller->request = $request;
         $this->controller->actionSave();
         $this->assertStringStartsWith(
-            'Something went wrong while creating config: NetAnts\WhatsRabbitLiveChat\ValueObject\LiveChatConfig::__construct(): ' .
+            'Something went wrong while creating config: Rabbit\RabbitMessengerLiveChat\ValueObject\LiveChatConfig::__construct(): ' .
             'Argument #4 ($whatsAppUrl) must be of type string, bool given, called in',
             $this->craft::$app->session->getError()
         );
