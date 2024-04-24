@@ -1,9 +1,9 @@
 <?php
 
-namespace NetAnts\WhatsRabbitLiveChatTest\Model;
+namespace Rabbit\RabbitMessengerLiveChatTest\Model;
 
 use Codeception\PHPUnit\TestCase;
-use NetAnts\WhatsRabbitLiveChat\Model\ApiSettings;
+use Rabbit\RabbitMessengerLiveChat\Model\ApiSettings;
 
 class ApiSettingsTest extends TestCase
 {

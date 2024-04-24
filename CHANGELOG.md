@@ -1,8 +1,23 @@
-# Release Notes for What'sRabbit LiveChat
+# Release Notes for Rabbit Messenger LiveChat
+
+## 1.3.0
+- Rebranding and textual changes
+- Updated core package usage
+- Bugfix for fetch session token
+
+## 1.2.0
+- Rebranding and textual changes
+- Updated display settings
+
+## 1.1.0
+- Fix various small issues
+
+## 1.0.0 - 2023-09-25
+- Fix various small issues
 
 ## 0.0.2 - 2023-08-15
 - Adding license and changelog
 - Changing required package from internal to packagist
 
 ## 0.0.1 - 2023-08-15
-- Initial implementation for the What'sRabbit LiveChat Craft plugin
+- Initial implementation for the Rabbit Messenger LiveChat Craft plugin
