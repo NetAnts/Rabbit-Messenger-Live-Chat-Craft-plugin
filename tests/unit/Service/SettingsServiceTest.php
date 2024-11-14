@@ -26,6 +26,12 @@ class SettingsServiceTest extends TestCase
         );
     }
 
+    public function testGetSettingsReturnsNull(): void
+    {
+        $settings = $this->service->getSettings();
+        $this->assertNull($settings);
+    }
+
     public function testSaveSettings(): void
     {
         $liveChatConfig = LiveChatConfig::createFromRequest([
@@ -35,6 +41,8 @@ class SettingsServiceTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'mobileCollapsed' => true,
+            'desktopExpanded' => true,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -57,6 +65,8 @@ class SettingsServiceTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'mobileCollapsed' => true,
+            'desktopExpanded' => true,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',

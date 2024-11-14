@@ -94,6 +94,8 @@ class DisplaySettingsController extends Controller
             'description' => $settings?->description,
             'title' => $settings?->title,
             'whatsAppUrl' => $settings?->whatsAppUrl,
+            'desktopExpanded' => $settings?->desktopExpanded,
+            'mobileCollapsed' => $settings?->mobileCollapsed,
             'enabled' => $settings?->enabled,
             'position' => $settings->position ?? 'fixed' ,
             'zIndex' => $settings->zIndex ?? '10' ,

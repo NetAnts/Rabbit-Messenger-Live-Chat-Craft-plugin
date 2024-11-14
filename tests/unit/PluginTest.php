@@ -50,12 +50,12 @@ class PluginTest extends TestCase
         $this->plugin->isInstalled = true;
         $settingsService = Mockery::mock(SettingsService::class);
         $settingsService->expects('getSettings')->twice()->andReturn(LiveChatConfig::createFromRequest([
-            'apiKey' => 'some-api-key',
-            'apiSecret' => 'some-api-secret',
             'title' => 'Some title',
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'mobileCollapsed' => true,
+            'desktopExpanded' => true,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -116,20 +116,38 @@ class PluginTest extends TestCase
 
     public function testGetLiveChatWidget(): void
     {
-        $context = [];
-        $settings = [
-            'avatarAssetId' => [0],
-        ];
-        $this->plugin->setSettings($settings);
-        $response = $this->plugin->getLiveChatWidget($context);
+        $settingsService = Mockery::mock(SettingsService::class);
+        $settingsService->expects('getSettings')->andReturn(LiveChatConfig::createFromRequest([
+            'title' => 'Some title',
+            'description' => 'Some description',
+            'avatarAssetId' => ['some-avatar-id'],
+            'whatsAppUrl' => 'https://wa.me',
+            'mobileCollapsed' => true,
+            'desktopExpanded' => true,
+            'enabled' => true,
+            'position' => 'fixed',
+            'zIndex' => '10',
+            'left' => 'inherit',
+            'right' => '0',
+            'bottom' => '0',
+            'top' => 'inherit',
+            'margin' => '20px',
+        ]));
+        $settingsServiceProperty = new \ReflectionProperty(Plugin::class, 'service');
+        $settingsServiceProperty->setAccessible(true);
+        $settingsServiceProperty->setValue($this->plugin, $settingsService);
+
+        $response = $this->plugin->getLiveChatWidget();
         $expectedHtml = '<rabbit-messenger-live-chat-widget
                                     avatar-url=""
                                     login-url="/actions/rabbit-messenger-live-chat/login/get-token"
-                                    whatsapp-url=""
-                                    welcome-title=""
-                                    welcome-description=""
-                                    display-options="{&quot;position&quot;:null,&quot;z-index&quot;:null,&quot;left&quot;:null,' .
-                                    '&quot;right&quot;:null,&quot;bottom&quot;:null,&quot;top&quot;:null,&quot;margin&quot;:null}"
+                                    whatsapp-url="https://wa.me"
+                                    welcome-title="Some title"
+                                    welcome-description="Some description"
+                                    display-options="{&quot;position&quot;:&quot;fixed&quot;,&quot;z-index&quot;:&quot;10&quot;,&quot;left&quot;:&quot;inherit&quot;,' .
+                                    '&quot;right&quot;:&quot;0&quot;,&quot;bottom&quot;:&quot;0&quot;,&quot;top&quot;:&quot;inherit&quot;,&quot;margin&quot;:&quot;20px&quot;}"
+                                    default-collapsed-mobile="true"
+                                    default-expanded-desktop="true"
                                 ></rabbit-messenger-live-chat-widget>';
         $this->assertSame(preg_replace("(\s+)", "\s", $expectedHtml), preg_replace("(\s+)", "\s", $response));
     }

@@ -82,6 +82,20 @@
            name: 'enabled',
            on: displaySettings.enabled,
        }) }}
+
+        {{ forms.lightswitch({
+            label: 'Collapse Live-chat mobile',
+            id: 'default-collapsed-mobile',
+            name: 'mobileCollapsed',
+            on: displaySettings.mobileCollapsed,
+        }) }}
+
+        {{ forms.lightswitch({
+            label: 'Expand Live-chat desktop',
+            id: 'default-expanded-desktop',
+            name: 'desktopExpanded',
+            on: displaySettings.desktopExpanded,
+        }) }}
    </div>
     <div id="display-options" class="hidden">
         <p>

@@ -13,7 +13,7 @@ class LiveChatConfig
         'avatarAssetId',
         'title',
         'description',
-        'whatsAppUrl'
+        'whatsAppUrl',
     ];
 
     private function __construct(
@@ -21,6 +21,8 @@ class LiveChatConfig
         public string $title,
         public string $description,
         public string $whatsAppUrl,
+        public bool $mobileCollapsed,
+        public bool $desktopExpanded,
         public bool $enabled,
         public string $loginUrl,
         public string $position,
@@ -52,6 +54,8 @@ class LiveChatConfig
             $data['title'],
             $data['description'],
             $data['whatsAppUrl'],
+            (bool)$data['mobileCollapsed'],
+            (bool)$data['desktopExpanded'],
             (bool)$data['enabled'],
             '/actions/rabbit-messenger-live-chat/login/get-token',
             $data['position'],
@@ -71,6 +75,8 @@ class LiveChatConfig
             $settings->title,
             $settings->description,
             $settings->whatsapp_url,
+            (bool)$settings->mobile_collapsed,
+            (bool)$settings->desktop_expanded,
             (bool)$settings->enabled,
             '/actions/rabbit-messenger-live-chat/login/get-token',
             $settings->position,
@@ -79,7 +85,7 @@ class LiveChatConfig
             $settings->right,
             $settings->bottom,
             $settings->top,
-            $settings->margin,
+            $settings->margin
         );
     }
 }
