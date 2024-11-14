@@ -24,6 +24,8 @@ class Install extends Migration
                 'title' => $this->string()->notNull(),
                 'description' => $this->string()->notNull(),
                 'whatsapp_url' => $this->string()->notNull(),
+                'mobile_collapsed' => $this->tinyInteger()->notNull()->defaultValue(1),
+                'desktop_expanded' => $this->tinyInteger()->notNull()->defaultValue(1),
                 'enabled' => $this->tinyInteger()->notNull()->defaultValue(1),
                 'position' => $this->string()->defaultValue('fixed'),
                 'z_index' => $this->string()->defaultValue('10'),

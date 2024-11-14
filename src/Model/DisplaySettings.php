@@ -10,8 +10,9 @@ class DisplaySettings extends Model
     public string $description = '';
     public string $title = '';
     public string $whatsAppUrl = '';
+    public bool $mobileCollapsed = true;
+    public bool $desktopExpanded = true;
     public bool $enabled = true;
-
     public string $position = 'fixed';
     public string $zIndex = '10';
     public string $left = 'inherit';
@@ -24,7 +25,7 @@ class DisplaySettings extends Model
     {
         return [
             [['title', 'whatsAppUrl', 'description', 'avatarAssetId'], 'required'],
-            [['enabled'], 'boolean'],
+            [['enabled', 'mobileCollapsed', 'desktopExpanded'], 'boolean'],
             [['position', 'zIndex', 'left', 'right', 'bottom', 'top', 'margin'], 'string']
         ];
     }

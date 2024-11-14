@@ -1,5 +1,8 @@
 # Release Notes for Rabbit Messenger LiveChat
 
+## 1.4.0
+- Added options to set the default behavior on the collapsed state on mobile and desktop
+
 ## 1.3.0
 - Rebranding and textual changes
 - Updated core package usage

@@ -19,6 +19,8 @@ class Plugin extends \craft\base\Plugin
 {
     public bool $hasCpSettings = true;
 
+    public string $schemaVersion = '1.4.0';
+
     public const PLUGIN_REPO_PROD_URL = 'plugins.rabbit.nl';
     public const LIVECHAT_ASSETS_DOMAIN = 'cdn.plugins.rabbit.nl';
     private ?SettingsService $service;
@@ -106,13 +108,17 @@ class Plugin extends \craft\base\Plugin
                         welcome-title="%s"
                         welcome-description="%s"
                         display-options="%s"
+                        default-collapsed-mobile="%s"
+                        default-expanded-desktop="%s"
                     ></rabbit-messenger-live-chat-widget>',
             $asset?->url,
             '/actions/rabbit-messenger-live-chat/login/get-token',
             $settings?->whatsAppUrl,
             $settings?->title,
             $settings?->description,
-            htmlspecialchars(json_encode($displayOptions))
+            htmlspecialchars(json_encode($displayOptions)),
+            $settings?->mobileCollapsed ? 'true' : 'false',
+            $settings?->desktopExpanded ? 'true' : 'false',
         );
     }
 

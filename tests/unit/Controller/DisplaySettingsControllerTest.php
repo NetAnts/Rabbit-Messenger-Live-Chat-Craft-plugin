@@ -39,6 +39,8 @@ class DisplaySettingsControllerTest extends TestCase
             'description' => 'some-description',
             'title' => 'some-title',
             'whatsAppUrl' => 'some-url',
+            'mobileCollapsed' => true,
+            'desktopExpanded' => true,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -62,6 +64,8 @@ class DisplaySettingsControllerTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'mobileCollapsed' => true,
+            'desktopExpanded' => true,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -91,6 +95,8 @@ class DisplaySettingsControllerTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'mobileCollapsed' => true,
+            'desktopExpanded' => true,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -121,6 +127,8 @@ class DisplaySettingsControllerTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
+            'mobileCollapsed' => true,
+            'desktopExpanded' => true,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -147,6 +155,8 @@ class DisplaySettingsControllerTest extends TestCase
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => true,
+            'mobileCollapsed' => true,
+            'desktopExpanded' => true,
             'enabled' => 'true',
             'position' => 'fixed',
             'zIndex' => '10',
@@ -162,7 +172,7 @@ class DisplaySettingsControllerTest extends TestCase
         $this->controller->actionSave();
         $this->assertStringStartsWith(
             'Something went wrong while creating config: Rabbit\RabbitMessengerLiveChat\ValueObject\LiveChatConfig::__construct(): ' .
-            'Argument #4 ($whatsAppUrl) must be of type string, bool given, called in',
+            'Argument #4 ($whatsAppUrl) must be of type string',
             $this->craft::$app->session->getError()
         );
     }
