@@ -12,12 +12,12 @@ class LiveChatConfigTest extends \Codeception\PHPUnit\TestCase
     public function testCreateFromRequestWithMissingData()
     {
         $this->expectException(InvalidDataException::class);
-        $this->expectExceptionMessage('Could not create LiveChatConfig because the following data is missing "title"');
+        $this->expectExceptionMessage('Could not create LiveChatConfig because the following data is missing "description"');
         LiveChatConfig::createFromRequest([
-            'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
-            'mobileCollapsed' => true,
             'desktopExpanded' => true,
+            'showInformationForm' => true,
+            'starterPopupTimer' => 25,
             'enabled' => true,
             'whatsAppUrl' => 'https://wa.me',
             'position' => 'fixed',
@@ -33,11 +33,11 @@ class LiveChatConfigTest extends \Codeception\PHPUnit\TestCase
     public function testCreateFromRequest()
     {
         $config = LiveChatConfig::createFromRequest([
-            'title' => 'Some title',
             'description' => 'Some description',
             'avatarAssetId' => [42],
-            'mobileCollapsed' => true,
             'desktopExpanded' => true,
+            'showInformationForm' => true,
+            'starterPopupTimer' => 25,
             'enabled' => true,
             'whatsAppUrl' => 'https://wa.me',
             'position' => 'fixed',
@@ -55,11 +55,11 @@ class LiveChatConfigTest extends \Codeception\PHPUnit\TestCase
     public function testCreateFromDatabase()
     {
         $settings = new Settings([
-            'title' => 'Some title',
             'description' => 'Some description',
             'avatar_asset_id' => 42,
-            'mobile_collapsed' => true,
             'desktop_expanded' => true,
+            'show_information_form' => true,
+            'starter_popup_timer' => 25,
             'enabled' => true,
             'whatsapp_url' => 'https://wa.me',
             'position' => 'fixed',

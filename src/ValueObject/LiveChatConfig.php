@@ -11,18 +11,17 @@ class LiveChatConfig
 {
     private const REQUIRED_KEYS = [
         'avatarAssetId',
-        'title',
         'description',
         'whatsAppUrl',
     ];
 
     private function __construct(
         public int $avatarAssetId,
-        public string $title,
         public string $description,
         public string $whatsAppUrl,
-        public bool $mobileCollapsed,
         public bool $desktopExpanded,
+        public bool $showInformationForm,
+        public int $starterPopupTimer,
         public bool $enabled,
         public string $loginUrl,
         public string $position,
@@ -51,11 +50,11 @@ class LiveChatConfig
 
         return new self(
             (int)$data['avatarAssetId'],
-            $data['title'],
             $data['description'],
             $data['whatsAppUrl'],
-            (bool)$data['mobileCollapsed'],
             (bool)$data['desktopExpanded'],
+            (bool)$data['showInformationForm'],
+            (int)$data['starterPopupTimer'],
             (bool)$data['enabled'],
             '/actions/rabbit-messenger-live-chat/login/get-token',
             $data['position'],
@@ -72,11 +71,11 @@ class LiveChatConfig
     {
         return new self(
             $settings->avatar_asset_id,
-            $settings->title,
             $settings->description,
             $settings->whatsapp_url,
-            (bool)$settings->mobile_collapsed,
             (bool)$settings->desktop_expanded,
+            (bool)$settings->show_information_form,
+            (int)$settings->starter_popup_timer,
             (bool)$settings->enabled,
             '/actions/rabbit-messenger-live-chat/login/get-token',
             $settings->position,

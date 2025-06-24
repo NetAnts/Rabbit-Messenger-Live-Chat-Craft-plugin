@@ -47,16 +47,6 @@
        }) }}
 
        {{ forms.textField({
-           label: 'Title',
-           id: 'title',
-           name: 'title',
-           value: displaySettings.title,
-           size: 50,
-           errors: displaySettings.getErrors('title'),
-           required: true,
-       }) }}
-
-       {{ forms.textField({
            label: 'Description',
            id: 'description',
            name: 'description',
@@ -84,19 +74,31 @@
        }) }}
 
         {{ forms.lightswitch({
-            label: 'Collapse Live-chat mobile',
-            id: 'default-collapsed-mobile',
-            name: 'mobileCollapsed',
-            on: displaySettings.mobileCollapsed,
-        }) }}
-
-        {{ forms.lightswitch({
             label: 'Expand Live-chat desktop',
             id: 'default-expanded-desktop',
             name: 'desktopExpanded',
             on: displaySettings.desktopExpanded,
         }) }}
-   </div>
+
+        {{ forms.lightswitch({
+            label: 'Show information form',
+            id: 'show-information-form',
+            name: 'showInformationForm',
+            on: displaySettings.showInformationForm,
+        }) }}
+
+        {{ forms.textField({
+            type: 'number',
+            label: 'Popup Timer (in seconds)',
+            id: 'starter-popup-timer',
+            name: 'starterPopupTimer',
+            value: displaySettings.starterPopupTimer,
+            errors: displaySettings.getErrors('starterPopupTimer'),
+            size: 50,
+            required: true,
+        }) }}
+
+    </div>
     <div id="display-options" class="hidden">
         <p>
             Configure the display options of the Live-chat plugin with the CSS properties below.

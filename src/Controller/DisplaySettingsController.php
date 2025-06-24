@@ -92,10 +92,10 @@ class DisplaySettingsController extends Controller
         $this->displaySettings = new DisplaySettings([
             'avatarAssetId' => $settings?->avatarAssetId,
             'description' => $settings?->description,
-            'title' => $settings?->title,
             'whatsAppUrl' => $settings?->whatsAppUrl,
             'desktopExpanded' => $settings?->desktopExpanded,
-            'mobileCollapsed' => $settings?->mobileCollapsed,
+            'showInformationForm' => $settings?->showInformationForm ?? true,
+            'starterPopupTimer' => $settings?->starterPopupTimer ?? 25,
             'enabled' => $settings?->enabled,
             'position' => $settings->position ?? 'fixed' ,
             'zIndex' => $settings->zIndex ?? '10' ,

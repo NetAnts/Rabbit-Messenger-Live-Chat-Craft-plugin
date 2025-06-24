@@ -21,11 +21,11 @@ class Install extends Migration
             [
                 'id' => $this->primaryKey(),
                 'avatar_asset_id' => $this->integer()->notNull(),
-                'title' => $this->string()->notNull(),
                 'description' => $this->string()->notNull(),
                 'whatsapp_url' => $this->string()->notNull(),
-                'mobile_collapsed' => $this->tinyInteger()->notNull()->defaultValue(1),
                 'desktop_expanded' => $this->tinyInteger()->notNull()->defaultValue(1),
+                'show_information_form' => $this->tinyInteger()->notNull()->defaultValue(1),
+                'starter_popup_timer' => $this->integer()->defaultValue(25),
                 'enabled' => $this->tinyInteger()->notNull()->defaultValue(1),
                 'position' => $this->string()->defaultValue('fixed'),
                 'z_index' => $this->string()->defaultValue('10'),

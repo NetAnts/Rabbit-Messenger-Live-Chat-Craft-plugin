@@ -50,12 +50,12 @@ class PluginTest extends TestCase
         $this->plugin->isInstalled = true;
         $settingsService = Mockery::mock(SettingsService::class);
         $settingsService->expects('getSettings')->twice()->andReturn(LiveChatConfig::createFromRequest([
-            'title' => 'Some title',
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
-            'mobileCollapsed' => true,
             'desktopExpanded' => true,
+            'showInformationForm' => true,
+            'starterPopupTimer' => '25',
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -118,12 +118,12 @@ class PluginTest extends TestCase
     {
         $settingsService = Mockery::mock(SettingsService::class);
         $settingsService->expects('getSettings')->andReturn(LiveChatConfig::createFromRequest([
-            'title' => 'Some title',
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
-            'mobileCollapsed' => true,
             'desktopExpanded' => true,
+            'showInformationForm' => true,
+            'starterPopupTimer' => '25',
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -142,12 +142,12 @@ class PluginTest extends TestCase
                                     avatar-url=""
                                     login-url="/actions/rabbit-messenger-live-chat/login/get-token"
                                     whatsapp-url="https://wa.me"
-                                    welcome-title="Some title"
                                     welcome-description="Some description"
                                     display-options="{&quot;position&quot;:&quot;fixed&quot;,&quot;z-index&quot;:&quot;10&quot;,&quot;left&quot;:&quot;inherit&quot;,' .
                                     '&quot;right&quot;:&quot;0&quot;,&quot;bottom&quot;:&quot;0&quot;,&quot;top&quot;:&quot;inherit&quot;,&quot;margin&quot;:&quot;20px&quot;}"
-                                    default-collapsed-mobile="true"
                                     default-expanded-desktop="true"
+                                    show-information-form="true"
+                                    starter-popup-timer="25"
                                 ></rabbit-messenger-live-chat-widget>';
         $this->assertSame(preg_replace("(\s+)", "\s", $expectedHtml), preg_replace("(\s+)", "\s", $response));
     }

@@ -8,10 +8,10 @@ class DisplaySettings extends Model
 {
     public ?int $avatarAssetId = null;
     public string $description = '';
-    public string $title = '';
     public string $whatsAppUrl = '';
-    public bool $mobileCollapsed = true;
     public bool $desktopExpanded = true;
+    public bool $showInformationForm = true;
+    public int $starterPopupTimer = 25;
     public bool $enabled = true;
     public string $position = 'fixed';
     public string $zIndex = '10';
@@ -24,8 +24,8 @@ class DisplaySettings extends Model
     public function rules(): array
     {
         return [
-            [['title', 'whatsAppUrl', 'description', 'avatarAssetId'], 'required'],
-            [['enabled', 'mobileCollapsed', 'desktopExpanded'], 'boolean'],
+            [['whatsAppUrl', 'description', 'avatarAssetId','starterPopupTimer'], 'required'],
+            [['enabled', 'desktopExpanded', 'showInformationForm'], 'boolean'],
             [['position', 'zIndex', 'left', 'right', 'bottom', 'top', 'margin'], 'string']
         ];
     }

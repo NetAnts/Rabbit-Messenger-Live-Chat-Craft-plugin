@@ -12,8 +12,8 @@ class DisplaySettingsTest extends TestCase
         $settings = new DisplaySettings();
         $rules = $settings->rules();
         $this->assertSame([
-            [['title', 'whatsAppUrl', 'description', 'avatarAssetId'], 'required'],
-            [['enabled', 'mobileCollapsed', 'desktopExpanded'], 'boolean'],
+            [['whatsAppUrl', 'description', 'avatarAssetId','starterPopupTimer'], 'required'],
+            [['enabled', 'desktopExpanded', 'showInformationForm'], 'boolean'],
             [['position', 'zIndex', 'left', 'right', 'bottom', 'top', 'margin'], 'string']
         ], $rules);
     }
