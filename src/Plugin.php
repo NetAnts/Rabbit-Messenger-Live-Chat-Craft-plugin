@@ -19,7 +19,7 @@ class Plugin extends \craft\base\Plugin
 {
     public bool $hasCpSettings = true;
 
-    public string $schemaVersion = '1.4.0';
+    public string $schemaVersion = '1.5.0';
 
     public const PLUGIN_REPO_PROD_URL = 'plugins.rabbit.nl';
     public const LIVECHAT_ASSETS_DOMAIN = 'cdn.plugins.rabbit.nl';
@@ -105,20 +105,20 @@ class Plugin extends \craft\base\Plugin
                         avatar-url="%s"
                         login-url="%s"
                         whatsapp-url="%s"
-                        welcome-title="%s"
                         welcome-description="%s"
                         display-options="%s"
-                        default-collapsed-mobile="%s"
                         default-expanded-desktop="%s"
+                        show-information-form="%s"
+                        starter-popup-timer="%s"
                     ></rabbit-messenger-live-chat-widget>',
             $asset?->url,
             '/actions/rabbit-messenger-live-chat/login/get-token',
             $settings?->whatsAppUrl,
-            $settings?->title,
             $settings?->description,
             htmlspecialchars(json_encode($displayOptions)),
-            $settings?->mobileCollapsed ? 'true' : 'false',
             $settings?->desktopExpanded ? 'true' : 'false',
+            $settings?->showInformationForm ? 'true' : 'false',
+            $settings?->starterPopupTimer,
         );
     }
 

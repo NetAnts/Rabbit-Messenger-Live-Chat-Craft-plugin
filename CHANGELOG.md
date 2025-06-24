@@ -1,5 +1,11 @@
 # Release Notes for Rabbit Messenger LiveChat
 
+## 1.5.1
+- Removed title and mobile-collapsed inputs as they are unused
+
+## 1.5.0
+- Added inputs to enable/disable the user information form and a timer for the starter-popup
+
 ## 1.4.0
 - Added options to set the default behavior on the collapsed state on mobile and desktop
 

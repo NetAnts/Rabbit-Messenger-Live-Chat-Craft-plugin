@@ -37,10 +37,10 @@ class DisplaySettingsControllerTest extends TestCase
         $this->settingsService->expects('getSettings')->andReturn(LiveChatConfig::createFromRequest([
             'avatarAssetId' => 'some-asset-id',
             'description' => 'some-description',
-            'title' => 'some-title',
             'whatsAppUrl' => 'some-url',
-            'mobileCollapsed' => true,
             'desktopExpanded' => true,
+            'showInformationForm' => true,
+            'starterPopupTimer' => 25,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -60,12 +60,12 @@ class DisplaySettingsControllerTest extends TestCase
         $request->expects('getBodyParams')->andReturn([
             'apiKey' => 'some-api-key',
             'apiSecret' => 'some-api-secret',
-            'title' => 'Some title',
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
-            'mobileCollapsed' => true,
             'desktopExpanded' => true,
+            'showInformationForm' => true,
+            'starterPopupTimer' => 25,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -91,12 +91,12 @@ class DisplaySettingsControllerTest extends TestCase
     {
         $request = Mockery::mock(Request::class);
         $request->expects('getBodyParams')->andReturn([
-            'title' => 'some title',
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
-            'mobileCollapsed' => true,
             'desktopExpanded' => true,
+            'showInformationForm' => true,
+            'starterPopupTimer' => 25,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -123,12 +123,12 @@ class DisplaySettingsControllerTest extends TestCase
     {
         $request = Mockery::mock(Request::class);
         $request->expects('getBodyParams')->andReturn([
-            'title' => null,
-            'description' => 'Some description',
+            'description' => null,
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => 'https://wa.me',
-            'mobileCollapsed' => true,
             'desktopExpanded' => true,
+            'showInformationForm' => true,
+            'starterPopupTimer' => 25,
             'enabled' => true,
             'position' => 'fixed',
             'zIndex' => '10',
@@ -151,12 +151,12 @@ class DisplaySettingsControllerTest extends TestCase
         $request->expects('getBodyParams')->andReturn([
             'apiKey' => 'some-api-key',
             'apiSecret' => 'some-api-secret',
-            'title' => 'Some title',
             'description' => 'Some description',
             'avatarAssetId' => ['some-avatar-id'],
             'whatsAppUrl' => true,
-            'mobileCollapsed' => true,
             'desktopExpanded' => true,
+            'showInformationForm' => true,
+            'starterPopupTimer' => 25,
             'enabled' => 'true',
             'position' => 'fixed',
             'zIndex' => '10',
@@ -172,7 +172,7 @@ class DisplaySettingsControllerTest extends TestCase
         $this->controller->actionSave();
         $this->assertStringStartsWith(
             'Something went wrong while creating config: Rabbit\RabbitMessengerLiveChat\ValueObject\LiveChatConfig::__construct(): ' .
-            'Argument #4 ($whatsAppUrl) must be of type string',
+            'Argument #3 ($whatsAppUrl) must be of type string',
             $this->craft::$app->session->getError()
         );
     }
@@ -187,7 +187,6 @@ class DisplaySettingsControllerTest extends TestCase
     public function testActionEditWithSettingsFromRoute(): void
     {
         $displaySettings = new DisplaySettings([
-            'title' => 'Some title',
             'description' => 'Some description',
             'avatarAssetId' => 0,
             'whatsAppUrl' => 'https://wa.me',
